@@ -43,35 +43,35 @@
   \subsection{Language-specific features}
 
   The classifier employs 110 language-specific features falling into 11 different trait groups. Within each group a
-  particular trait of the site is examined for each of 10 language classes separately. Selection of
+  particular trait of a site is examined for each of 10 language classes separately. Selection of
   inspected language traits follows: 
   \begin{itemize}
     \item \textit{on-page language detection} - E.g. feature named \texttt{on\_page\_CS} determines the
       probability of a web page being in the Czech language based on analysis of all the text
-      contained in the page being scrutinized. Similarly \texttt{on\_page\_DE} determines the
-      probability for German language etc. Besides the above-described all-text analysis, the on-page 
-      detector is also used for analysing language of \textit{site-wide} text (\texttt{SWT}) and
-    \textit{non-site-wide} text (\texttt{non-SWT}) parts of the document separately as site-wide texts 
-      such as menus may tend to be in different language than site-specific texts.
+      contained on the page being scrutinized. Similarly \texttt{on\_page\_DE} determines the
+      probability for German language etc. Besides the above-described all-text analysis, the \textit{on-page 
+      detector} is also used for analysing language of \textit{site-wide} text part (\texttt{SWT}) and
+    \textit{non-site-wide} text (\texttt{non-SWT}) part of the document separately as site-wide texts 
+      such as menus may tend to be in different language than site-specific texts such as articles' bodies.
     \item \textit{backlink language prediction} - probabilities of the page being in a particular
       language based on language characteristics of other pages referencing it (e.g.
       \texttt{backlink\_EN})
     \item \textit{language statistics aggregated for domains} - language statistics for the
       containing domains of different levels
     \item \textit{language specifications in} HTML - such as \texttt{<HTML lang=...>} or \texttt{<HTML
-      meta http-equiv="Content-Language" ...>}
-    \item \text{listed language indicative tokens in URL} such as \texttt{cs} in:
+      meta http-equiv="Content-Language"  ...>}
+    \item \text{selected language indicative tokens in URL} such as \texttt{cs} in:
 
     \texttt{http://www.europarl.europa.eu/news/}\underline{\texttt{cs}} 
-    \item HTTP \textit{header field \texttt{Content-language}}
+    \item HTTP \textit{header field} \texttt{Content-language}
   \end{itemize}
 
   \subsection{Generic language features}
     For feature generation purposes, one can examine each web page from 10 different perspecitves -
     each corresponding to one particular language (i.e. a class). With generic language features, we
-    take advantage of this fact by shifting from questions such as \uv{What is the probability that 
+    take advantage of this fact by shifting from asking questions such as \uv{what is the probability that 
     this particular page is in the Czech language based on backlink statistics?} to questions 
-    such as \uv{What is the probability that this page is in the language we are currently checking 
+    such as \uv{what is the probability that this page is in the language we are currently checking 
     based on backlink statistics?} Technically, this means simply
     that for each \textit{view} (i.e. particular language), we copy values of language-specific
     features for that language and use them as generic language features for the current view. Thus
