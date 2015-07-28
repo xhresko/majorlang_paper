@@ -34,6 +34,16 @@
     \textsc{\Large Major Language Detection}
   \end{center}
 
+  Our task resembles a multi-category classification problem. 
+  However this approach brings a number of issues arising primarily from the fact of class multiplicity. 
+  In the first place, there is a problem with sampling as we needed to keep corresponding proportions 
+  of real distribution of languages across our dataset. 
+  This leads to the situation when some classes examples are quite rare and so their count is insufficient 
+  for training proper classifier. We handled this aspect of the task by joining all positive samples 
+  into one class and modifying the features by creating a special group of so called \textit{generic language features}. 
+  Using this approach we were able to create more general classifier, which works as a ranker of all considered languages. 
+  The final model was trained using RC-Rank algorithm which is based on multiple additive oblivious decision trees [cit. MM]. 
+
   \section{Features}
   Our classifier takes advantage of a total of 143 features (not including additional 96 mixed features) divided into four groups
   as follows: \textit{language-specific features}, \textit{generic language features}, \textit{non-language
