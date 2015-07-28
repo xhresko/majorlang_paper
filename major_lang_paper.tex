@@ -1,0 +1,101 @@
+% verze šablony 1.1 (15.2.2013)
+\documentclass[12pt,a4paper]{article}			% větší písmo, formát papíru, třída dokumentu, čísla stránek           
+
+	% načtení balíčků	
+	\usepackage[czech]{babel}
+	\usepackage[utf8]{inputenc} 			% UTF-8 kódování zdrojáku
+	\usepackage[T1]{fontenc}    			% kódování fontu pro ne-ASCII znaky
+	\usepackage{amsmath}        			% lepší sázení matematiky
+	\usepackage{amssymb}	    			% matematické symboly
+	\usepackage[intoc]{nomencl}	    		% pomáhá vytvořit seznam použitých zkratek nebo termínů 
+	\usepackage{graphicx}	    			% vkládání obrázků
+	\usepackage{multicol}				% více-sloupcový layout
+	\usepackage{array,multirow}			% row-span v tabulkách  
+	\usepackage{marginnote}				% poznámky na straně 
+	\usepackage{bigdelim}				% spolu s multirow umožňuje vertikální svorky u tabulek  
+	\usepackage{tabularx}				% lepsi tabulky  
+	\usepackage{datetime}				% práce s datumy 
+	\usepackage[usenames,dvipsnames, table]{xcolor}	% barevné tabulky a zvyrazneni textu pres colorbox
+	\usepackage{lastpage}				% umožňuje automaticky vložit celkový počet stránek v dokumentu 
+	\usepackage[ps2pdf, unicode]{hyperref}  	% odkazy (musí být za ostatními balíčky)
+	\usepackage{breakurl}				% zalamování URL (musí být pod hyperref)
+  \usepackage{eurosym}        % potreba pro pouziti euro symbolu
+
+	% nastavení okrajů
+	\setlength\textwidth{145mm}     		% šířka řádků
+	\setlength\textheight{247mm}    		% zmenšení spodního okraje stránky 
+	\setlength\oddsidemargin{0mm} 			% levý okraj stránky
+	\setlength\topmargin{0mm}			% horní okraj stránky
+	\setlength\headsep{0mm}	        		% ------ || ---------
+	\setlength\headheight{0mm}			% ------ || ---------
+
+\begin{document}
+	\begin{center}	
+		\textsc{\Large Major Language Detection}
+	\end{center}
+
+  \section{Features}
+  Our classifier takes advantage of a total of 143 features (not including additional 96 mixed features) divided into four groups
+  as follows: \textit{language-specific features}, \textit{generic language features}, \textit{non-language
+  features} and \textit{mixed features}. In this section we briefly characterize each of these
+  groups.
+
+  \subsection{Language-specific features}
+
+  The classifier employs 110 language-specific features falling into 11 different trait groups. Within each group a
+  particular trait of the site is examined for each of 10 language classes separately. Selection of
+  inspected language traits follows: 
+  \begin{itemize}
+    \item \textit{on-page language detection} - E.g. feature named \texttt{on\_page\_CS} determines the
+      probability of a web page being in the Czech language based on analysis of all the text
+      contained in the page being scrutinized. Similarly \texttt{on\_page\_DE} determines the
+      probability for German language etc. Besides the above-described all-text analysis, the on-page 
+      detector is also used for analysing language of \textit{site-wide} text (\texttt{SWT}) and
+    \textit{non-site-wide} text (\texttt{non-SWT}) parts of the document separately as site-wide texts 
+      such as menus may tend to be in different language than site-specific texts.
+    \item \textit{backlink language prediction} - probabilities of the page being in a particular
+      language based on language characteristics of other pages referencing it (e.g.
+      \texttt{backlink\_EN})
+    \item \textit{language statistics aggregated for domains} - language statistics for the
+      containing domains of different levels
+  \item \textit{language specifications in} HTML - such as \texttt{<HTML lang=...>} or \texttt{<HTML
+      meta http-equiv="Content-Language" ...>}
+    \item \text{listed language indicative tokens in URL} such as \texttt{cs} in:
+
+    \texttt{http://www.europarl.europa.eu/news/}\underline{\texttt{cs}} 
+  \item HTTP \textit{header field \texttt{Content-language}}
+  \end{itemize}
+
+  \subsection{Generic language features}
+    For feature generation purposes, one can examine each web page from 10 different perspecitves -
+    each corresponding to one particular language (i.e. a class). With generic language features, we
+    take advantage of this fact by shifting from questions such as \uv{What is the probability that 
+    this particular page is in the Czech language based on backlink statistics?} to questions 
+    such as \uv{What is the probability that this page is in the language we are currently checking 
+    based on backlink statistics?} Technically, this means simply
+    that for each \textit{view} (i.e. particular language), we copy values of language-specific
+    features for that language and use them as generic language features for the current view. Thus
+    we end up with 11 generic language features (one for each trait group of language-specific
+    features) such as \texttt{on\_page\_lang}, \texttt{backlink\_lang}, etc.
+
+  \subsection{Non-language features}
+    Not all used features are directly related to document language. Features in this group may help the
+    classifier to first split the data space into distinct categories exhibiting different data patterns 
+    to subsequently enhance the language detection itself. 
+
+    \begin{itemize}
+      \item \textit{type of site} - probabilities of the site being an e-shop, photo gallery etc.
+      \item \textit{prices and currencies} - total numbers of matches of a set of regular
+      expressions designed to detect prices in particular currencies (e.g. \texttt{\euro 35}) 
+      \item \textit{text length} 
+      \item \textit{backlink count}
+    \end{itemize}
+    
+  \subsection{Mixed features}
+
+    To make the job easier for the classifier, we also used mixed features which combine previously
+    described features in various ways. Each of mixed features is either a sum or a product of a
+    pair or a triplet of some selected features.
+
+
+\end{document}
