@@ -33,6 +33,31 @@
   \begin{center}  
     \textsc{\Large Major Language Detection}
   \end{center}
+  
+  \section{Introduction}
+  Our main goal was to choose Major Language given on-page language detection results and other features. Finding out languages and their proportion on a webpage is well-established topic in computational processing of web pages (citace). However, determining which of them is major one is not.
+
+  Major Language of a given webpage is the intended language of all potential queries aiming at a given webpage. 
+
+  Intended language is the language of web pages in which a user intends to find results in SERP. This definition implies that if a user searches for a webpages in a language x, our major goal is to provide webpages in language x.
+  It is essential topic for any full text search engine to return webpages relevant to a query. One of the dimensions of relevancy is also a language. For each webpage, we thus need to ask: “If the user wanted to find this page, in which language would she formulate the query?” Our interpretation of major language presupposes that user knows what should be the language of the answer to her query.
+  This definition strives to exclude any ambiguity. There are very few contexts in which there would be more queries in various languages aiming at the same page.
+  We approached this topic with a machine-learning method based on our implementation of multiple additive oblivious decision trees called RC-rank.
+
+
+  Our paper has X sections:
+  \begin{enumerate}
+  \item	Introduction
+  \item Task (Popis úlohy – kolik jazyků a které (a proč tyto jazyky), na jakou množinu aplikujeme klasifikátor, jaký je poměr jazyků tam…..)
+
+  \item Related work (problem se neřeší tak často, ale zakládáme se na onpage detekci)
+
+  \item Classifier  (co je zač a jak jsme si vyhráli s fíčurama)
+  \item Feature description
+  \item Training set
+  \item Results
+  \item Comparison with other majorLang algorithms
+  \end{enumerate}
 
   Our task resembles a multi-category classification problem. 
   However this approach brings a number of issues arising primarily from the fact of class multiplicity. 
