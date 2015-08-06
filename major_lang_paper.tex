@@ -25,8 +25,9 @@
 % Gerald Murray ---> murray@hq.acm.org
 %
 % For tracking purposes - this is V3.1SP - APRIL 2009
-
 \documentclass{acm_proc_article-sp}
+
+\usepackage[utf8]{inputenc}
 
 \begin{document}
 
@@ -72,9 +73,9 @@
 % e-mail address with \email.
 %
 \alignauthor
-Juraj Hre\v{s}ko\titlenote{Chief officer of Jurajsk\'{y} park.},Vojt\v{e}ch Diatka\titlenote{The Language Master.}, Kry\v{s}tof Bo\v{r}kovec
+Juraj Hreško\titlenote{Chief officer of Jurajský park.},Vojtěch Diatka\titlenote{The Language Master.}, Kryštof Bořkovec
        \affaddr{Seznam.cz, a.s.}\\
-       \affaddr{Radlick\'{a} 3294/10}\\
+       \affaddr{Radlická 3294/10}\\
        \affaddr{Prague 5, Czech Republic}\\
        \email{\{juraj.hresko,vojtech.diatka,krystof.borkovec\}\\@firma.seznam.cz}
 }
@@ -211,6 +212,23 @@ TODO
     To make the job easier for the classifier, we also used mixed features which combine previously
     described features in various ways. Each of mixed features is either a sum or a product of a
     pair or a triplet of some selected features.
+
+  \section{Training set}
+
+  We have started by annotating 3,456 web pages randomly selected from database
+  used by Seznam.cz's full-text search engine. Each URL was manually assigned
+  by the authors to exactly one of 10 following language classes {\texttt{CS}, \texttt{DE},
+  \texttt{EN}, \texttt{FR}, \texttt{PL}, \texttt{SK}, \texttt{UNKNOWN}, 
+  \texttt{UNKNOWN\_CYRILLIC}, \texttt{UNKNOWN\_LATIN},
+  \texttt{UNKNOWN\_OTHER}. Documents in the created set (represented by their
+  URLs) were subsequently divided into two separate sets for training and
+  testing. Our training set consisted of 2,410 web pages and our testing set
+  contained the remaining 1,046 web pages. As soon as we realized that some
+  language classes are obviously not sufficiently represented in our training
+  data, we used the above-described trick (of constructing a single classifier for
+  ten languages instead of ten different classifiers) to inflate the data. Thus
+  we generated ten training instances for each annotated URL resulting in final
+  sizes of 24,100 and 10,460 web pages for training and testing set respectively.
 
 \balancecolumns
 
