@@ -126,9 +126,18 @@ TODO
   extend our method to allow us to efficiently and automatically segment the input text into blocks of individual 
   languages, in case of multiple-language documents.” (Řehůřek and Kolkus 2009)
   We would like to mention one example of how other researchers have dealt with our task. As it was not the main goal of 
-  their paper, their solution is very simple.
+  their paper, their solution is very simple:
+  “In these cases, we try to re-apply the ngram algorithm, weighting the largest continuous text block in the document 
+  (blocks are identied in the HTML parsing stage, taking in account the markup information) as three times more important 
+  than the normal text. The rationale for this is that the longest block will very likely correspond to a good description 
+  of the page, possibly in its main language.” (Martins and Silva: 2005) If we are to determine the major language of a website 
+  we can’t confine ourselves to choose simply the language with highest proportion. A good example of this is a case of an e-shop 
+  containing 80% English and 20% Czech. Despite this language proportion we would like to choose Czech as the main language. 
+  English on this webpage comes up only as the names of products in a very long list. Only the menu is Czech. In this case 
+  we need to assign this page a Czech main language tag because we want to have it as a landing page for queries in Czech.
 
 
+  \section{Classifier}
 
   Our task resembles a multi-category classification problem. 
   However this approach brings a number of issues arising primarily from the fact of class multiplicity. 
