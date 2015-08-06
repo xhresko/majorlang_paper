@@ -1,40 +1,91 @@
-% verze šablony 1.1 (15.2.2013)
-\documentclass[12pt,a4paper]{article}     % větší písmo, formát papíru, třída dokumentu, čísla stránek           
+% THIS IS SIGPROC-SP.TEX - VERSION 3.1
+% WORKS WITH V3.2SP OF ACM_PROC_ARTICLE-SP.CLS
+% APRIL 2009
+%
+% It is an example file showing how to use the 'acm_proc_article-sp.cls' V3.2SP
+% LaTeX2e document class file for Conference Proceedings submissions.
+% ----------------------------------------------------------------------------------------------------------------
+% This .tex file (and associated .cls V3.2SP) *DOES NOT* produce:
+%       1) The Permission Statement
+%       2) The Conference (location) Info information
+%       3) The Copyright Line with ACM data
+%       4) Page numbering
+% ---------------------------------------------------------------------------------------------------------------
+% It is an example which *does* use the .bib file (from which the .bbl file
+% is produced).
+% REMEMBER HOWEVER: After having produced the .bbl file,
+% and prior to final submission,
+% you need to 'insert'  your .bbl file into your source .tex file so as to provide
+% ONE 'self-contained' source file.
+%
+% Questions regarding SIGS should be sent to
+% Adrienne Griscti ---> griscti@acm.org
+%
+% Questions/suggestions regarding the guidelines, .tex and .cls files, etc. to
+% Gerald Murray ---> murray@hq.acm.org
+%
+% For tracking purposes - this is V3.1SP - APRIL 2009
 
-  % načtení balíčků 
-  \usepackage[czech]{babel}
-  \usepackage[utf8]{inputenc}       % UTF-8 kódování zdrojáku
-  \usepackage[T1]{fontenc}          % kódování fontu pro ne-ASCII znaky
-  \usepackage{amsmath}              % lepší sázení matematiky
-  \usepackage{amssymb}            % matematické symboly
-  \usepackage[intoc]{nomencl}         % pomáhá vytvořit seznam použitých zkratek nebo termínů 
-  \usepackage{graphicx}           % vkládání obrázků
-  \usepackage{multicol}       % více-sloupcový layout
-  \usepackage{array,multirow}     % row-span v tabulkách  
-  \usepackage{marginnote}       % poznámky na straně 
-  \usepackage{bigdelim}       % spolu s multirow umožňuje vertikální svorky u tabulek  
-  \usepackage{tabularx}       % lepsi tabulky  
-  \usepackage{datetime}       % práce s datumy 
-  \usepackage[usenames,dvipsnames, table]{xcolor} % barevné tabulky a zvyrazneni textu pres colorbox
-  \usepackage{lastpage}       % umožňuje automaticky vložit celkový počet stránek v dokumentu 
-  \usepackage[ps2pdf, unicode]{hyperref}    % odkazy (musí být za ostatními balíčky)
-  \usepackage{breakurl}       % zalamování URL (musí být pod hyperref)
-  \usepackage{eurosym}        % potreba pro pouziti euro symbolu
-
-  % nastavení okrajů
-  \setlength\textwidth{145mm}         % šířka řádků
-  \setlength\textheight{247mm}        % zmenšení spodního okraje stránky 
-  \setlength\oddsidemargin{0mm}       % levý okraj stránky
-  \setlength\topmargin{0mm}     % horní okraj stránky
-  \setlength\headsep{0mm}             % ------ || ---------
-  \setlength\headheight{0mm}      % ------ || ---------
+\documentclass{acm_proc_article-sp}
 
 \begin{document}
-  \begin{center}  
-    \textsc{\Large Major Language Detection}
-  \end{center}
-  
-  \section{Introduction}
+
+\title{Major Language Detection}
+%
+% You need the command \numberofauthors to handle the 'placement
+% and alignment' of the authors beneath the title.
+%
+% For aesthetic reasons, we recommend 'three authors at a time'
+% i.e. three 'name/affiliation blocks' be placed beneath the title.
+%
+% NOTE: You are NOT restricted in how many 'rows' of
+% "name/affiliations" may appear. We just ask that you restrict
+% the number of 'columns' to three.
+%
+% Because of the available 'opening page real-estate'
+% we ask you to refrain from putting more than six authors
+% (two rows with three columns) beneath the article title.
+% More than six makes the first-page appear very cluttered indeed.
+%
+% Use the \alignauthor commands to handle the names
+% and affiliations for an 'aesthetic maximum' of six authors.
+% Add names, affiliations, addresses for
+% the seventh etc. author(s) as the argument for the
+% \additionalauthors command.
+% These 'additional authors' will be output/set for you
+% without further effort on your part as the last section in
+% the body of your article BEFORE References or any Appendices.
+
+\numberofauthors{8} %  in this sample file, there are a *total*
+% of EIGHT authors. SIX appear on the 'first-page' (for formatting
+% reasons) and the remaining two appear in the \additionalauthors section.
+%
+\author{
+% You can go ahead and credit any number of authors here,
+% e.g. one 'row of three' or two rows (consisting of one row of three
+% and a second row of one, two or three).
+%
+% The command \alignauthor (no curly braces needed) should
+% precede each author name, affiliation/snail-mail address and
+% e-mail address. Additionally, tag each line of
+% affiliation/address with \affaddr, and tag the
+% e-mail address with \email.
+%
+\alignauthor
+Juraj Hre\v{s}ko\titlenote{Chief officer of Jurajsk\'{y} park.},Vojt\v{e}ch Diatka\titlenote{The Language Master.}, Kry\v{s}tof Bo\v{r}kovec
+       \affaddr{Seznam.cz, a.s.}\\
+       \affaddr{Radlick\'{a} 3294/10}\\
+       \affaddr{Prague 5, Czech Republic}\\
+       \email{\{juraj.hresko,vojtech.diatka,krystof.borkovec\}\\@firma.seznam.cz}
+}
+
+\maketitle
+\begin{abstract}
+TODO
+\end{abstract}
+\keywords{language detection} % NOT required for Proceedings
+
+\section{Introduction}
   Our main goal was to choose Major Language given on-page language detection results and other features. Finding out languages and their proportion on a webpage is well-established topic in computational processing of web pages (citace). However, determining which of them is major one is not.
 
   Major Language of a given webpage is the intended language of all potential queries aiming at a given webpage. 
@@ -47,7 +98,7 @@
 
   Our paper has X sections:
   \begin{enumerate}
-  \item	Introduction
+  \item Introduction
   \item Task (Popis úlohy – kolik jazyků a které (a proč tyto jazyky), na jakou množinu aplikujeme klasifikátor, jaký je poměr jazyků tam…..)
 
   \item Related work (problem se neřeší tak často, ale zakládáme se na onpage detekci)
@@ -75,7 +126,7 @@
   features} and \textit{mixed features}. In this section we briefly characterize each of these
   groups.
 
-  \subsection{Language-specific features}
+\subsection{Language-specific features}
 
   The classifier employs 110 language-specific features falling into 11 different trait groups. Within each group a
   particular trait of a site is examined for each of 10 language classes separately. Selection of
@@ -101,19 +152,19 @@
     \item HTTP \textit{header field} \texttt{Content-language}
   \end{itemize}
 
-  \subsection{Generic language features}
+
+\subsection{Generic language features}
     For feature generation purposes, one can examine each web page from 10 different perspecitves -
     each corresponding to one particular language (i.e. a class). With generic language features, we
-    take advantage of this fact by shifting from asking questions such as \uv{what is the probability that 
+    take advantage of this fact by shifting from asking questions such as \textit{what is the probability that 
     this particular page is in the Czech language based on backlink statistics?} to questions 
-    such as \uv{what is the probability that this page is in the language we are currently checking 
+    such as \textit{what is the probability that this page is in the language we are currently checking 
     based on backlink statistics?} Technically, this means simply
     that for each \textit{view} (i.e. particular language), we copy values of language-specific
     features for that language and use them as generic language features for the current view. Thus
     we end up with 11 generic language features (one for each trait group of language-specific
     features) such as \texttt{on\_page\_lang}, \texttt{backlink\_lang}, etc.
-
-  \subsection{Non-language features}
+ \subsection{Non-language features}
     Not all used features are directly related to document language. Features in this group may help the
     classifier to first split the data space into distinct categories exhibiting different data patterns 
     to subsequently enhance the language detection itself. 
@@ -121,7 +172,7 @@
     \begin{itemize}
       \item \textit{type of site} - probabilities of the site being an e-shop, photo gallery etc.
       \item \textit{prices and currencies} - total numbers of matches of a set of regular
-      expressions designed to detect prices in particular currencies (e.g. \texttt{\euro 35}) 
+      expressions designed to detect prices in particular currencies (e.g. \texttt{\$35}) 
       \item \textit{text length} 
       \item \textit{backlink count}
     \end{itemize}
@@ -132,5 +183,7 @@
     described features in various ways. Each of mixed features is either a sum or a product of a
     pair or a triplet of some selected features.
 
+\balancecolumns
 
+% That's all folks!
 \end{document}
