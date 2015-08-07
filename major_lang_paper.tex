@@ -150,21 +150,21 @@ TODO
   of languages identified on a webpage. Except for a few remarks on this topic in papers 
   focusing on on-page language detection this topic seems to be unexplored. 
   Necessary prerequisite for our research is on-page detection. Many researchers approached this topic
-  from various perspectives. For a comparison of some of these models see Baldwin and Lui (2010). 
+  from various perspectives. For a comparison of some of these modelsi, see \cite{Baldwin:shortlong}. 
   First algorithms were based on N-grams comparing frequencies of n-grams in a given document with 
-  language models - frequency list of N-grams (e.g.Trenkle 1994). Current algorithms classifying languages 
+  language models - frequency list of N-grams \cite{trenkle:ngram}. Current algorithms classifying languages 
   are based on Support Vector Machines (SVM). System based on SVM first maps input into a high dimensional space. 
-  Then, it separates classes with a hyperplane (Campbell et al. 2004, Lodhi et al 2002).
-  Our on-page identification was based on an algorithm by Řehůřek and Kolkus (2009).  They elaborated the N-gram approach. 
+  Then, it separates classes with a hyperplane (\cite{Campbell:supportvector}, \cite{Lodhi:textclass}).
+  Our on-page identification was based on an algorithm by Řehůřek and Kolkus (\cite{Rehurek:languageidentification}).  They elaborated the N-gram approach. 
   “We propose and evaluate a new method, which constructs language models based on word relevance. We also 
   extend our method to allow us to efficiently and automatically segment the input text into blocks of individual 
-  languages, in case of multiple-language documents.” (Řehůřek and Kolkus 2009)
+  languages, in case of multiple-language documents.” (\cite{Rehurek:languageidentification})
   We would like to mention one example of how other researchers have dealt with our task. As it was not the main goal of 
   their paper, their solution is very simple:
   “In these cases, we try to re-apply the ngram algorithm, weighting the largest continuous text block in the document 
   (blocks are identied in the HTML parsing stage, taking in account the markup information) as three times more important 
   than the normal text. The rationale for this is that the longest block will very likely correspond to a good description 
-  of the page, possibly in its main language.” (Martins and Silva: 2005) If we are to determine the major language of a website 
+  of the page, possibly in its main language.” (\cite{Martins:langidentweb}) If we are to determine the major language of a website 
   we can’t confine ourselves to choose simply the language with highest proportion. A good example of this is a case of an e-shop 
   containing 80\% English and 20\% Czech. Despite this language proportion we would like to choose Czech as the main language. 
   English on this webpage comes up only as the names of products in a very long list. Only the menu is Czech. In this case 
