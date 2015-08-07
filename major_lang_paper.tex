@@ -111,7 +111,40 @@ TODO
   \item Comparison with other majorLang algorithms
   \end{enumerate}
   
-  \section{Related Work}
+\section{Task}
+
+  For our purpose we needed to work with specific categories of languages.
+  As a web fulltext search company we are working with non-trivial volume of web documents.
+  Due to technical limitations as well as because our services target mainly market in the Czech Republic,
+  our database of indexed documents represents sample with specific language distribution which is different from the
+  language distribution of all documents in the Internet.
+  The distribution is based primarily on the list of “main” languages –
+  Czech, English, Slovak, German, Polish and French –
+  selected as most interesting latin-alphabet languages for local users and representing  our first six classes.
+  As we are not trying to differentiate other languages, we created three other language classes specified only by writing system
+  – latin, cyrillic and other (e.g. in order - Hungarian, Bulgarian and Armenian language).
+
+  \begin{table}[]
+ \centering
+ \caption{Languages distribution in dataset}
+ \label{langdist}
+ \begin{tabular}{|c|c|c|c|c|c|} 
+     \hline
+ CS & EN & SK & DE & PL & FR  \\ \hline
+ 11.1 & 22.2 & 3.3 & 4.4 & 5.5 & 6.6 \\ \hline
+ \end{tabular} 
+ 
+
+ \begin{tabular}{|c|c|c|} 
+     \hline
+  Latin & Cyrillic & Other \\ \hline
+ 7.7 & 8.8 & 9.0 \\ \hline
+ \end{tabular}
+ 
+ \end{table}
+
+
+\section{Related Work}
 
   To our knowledge, there is no paper dealing with choosing the main language from the set
   of languages identified on a webpage. Except for a few remarks on this topic in papers 
