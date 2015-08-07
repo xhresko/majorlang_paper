@@ -1,17 +1,25 @@
-JMENO_DOKUMENTU=major_lang_paper
+DOC_NAME=major_lang_paper
 SHELL=/bin/bash
+LATEX = latex
+BIBTEX = bibtex
 
-all: $(JMENO_DOKUMENTU).pdf
+PDF = ps2pdf
+PS = dvips
+PS_FLAGS = -D 600 -t a4
 
-$(JMENO_DOKUMENTU).pdf: $(JMENO_DOKUMENTU).ps
-	ps2pdf $< $@
-	
-$(JMENO_DOKUMENTU).ps: $(JMENO_DOKUMENTU).dvi
-	dvips -o $@ -D 600 -t a4 $< 	 
+all: $(DOC_NAME).pdf
 
-$(JMENO_DOKUMENTU).dvi: $(JMENO_DOKUMENTU).tex
-	cslatex $<	
-	cslatex $<	
+%.pdf: %.ps
+	$(PDF) $<
+
+%.ps: %.dvi
+	$(PS) $(PS_FLAGS) $< -o $@
+
+$(DOC_NAME).dvi: $(wildcard *.tex) $(wildcard *.bib) $(wildcard images/*.eps)
+	$(LATEX) ${@:.dvi=}
+	$(BIBTEX) ${@:.dvi=}
+	$(LATEX) ${@:.dvi=}
+	$(LATEX) ${@:.dvi=}
 
 clean:
-	rm -f *.{log,dvi,aux,toc,lof,out} $(JMENO_DOKUMENTU).ps $(JMENO_DOKUMENTU).pdf
+	rm -rRf *.dvi *.aux *.blg *.log *.ps *~ *.bbl *.pdf *.out

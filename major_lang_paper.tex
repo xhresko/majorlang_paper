@@ -181,7 +181,7 @@ TODO
   for training proper classifier. We handled this aspect of the task by joining all positive samples 
   into one class and modifying the features by creating a special group of so called \textit{generic language features}. 
   Using this approach we were able to create more general classifier, which works as a ranker of all considered languages. 
-  The final model was trained using RC-Rank algorithm which is based on multiple additive oblivious decision trees [cit. MM]. 
+  The final model was trained using RC-Rank algorithm which is based on multiple additive oblivious decision trees \cite{maimon:datamining}. 
 
   \section{Features}
   Our classifier takes advantage of a total of 143 features (not including additional 96 mixed features) divided into four groups
@@ -262,6 +262,10 @@ TODO
   ten languages instead of ten different classifiers) to inflate the data. Thus
   we generated ten training instances for each annotated URL resulting in final
   sizes of 24,100 and 10,460 web pages for training and testing set respectively.
+
+
+\bibliographystyle{abbrv}
+\bibliography{major_lang_paper}
 
 \balancecolumns
 
