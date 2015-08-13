@@ -111,39 +111,6 @@ TODO
   \item Comparison with other majorLang algorithms
   \end{enumerate}
   
-\section{Task}
-
-  For our purpose we needed to work with specific categories of languages.
-  As a web fulltext search company we are working with non-trivial volume of web documents.
-  Due to technical limitations as well as because our services target mainly market in the Czech Republic,
-  our database of indexed documents represents sample with specific language distribution which is different from the
-  language distribution of all documents in the Internet.
-  The distribution is based primarily on the list of “main” languages –
-  Czech, English, Slovak, German, Polish and French –
-  selected as most interesting latin-alphabet languages for local users and representing  our first six classes.
-  As we are not trying to differentiate other languages, we created three other language classes specified only by writing system
-  – latin, cyrillic and other (e.g. in order - Hungarian, Bulgarian and Armenian language).
-
-  \begin{table}[]
- \centering
- \caption{Languages distribution in dataset}
- \label{langdist}
- \begin{tabular}{|c|c|c|c|c|c|} 
-     \hline
- CS & EN & SK & DE & PL & FR  \\ \hline
- 11.1 & 22.2 & 3.3 & 4.4 & 5.5 & 6.6 \\ \hline
- \end{tabular} 
- 
-
- \begin{tabular}{|c|c|c|} 
-     \hline
-  Latin & Cyrillic & Other \\ \hline
- 7.7 & 8.8 & 9.0 \\ \hline
- \end{tabular}
- 
- \end{table}
-
-
 \section{Related Work}
 
   To our knowledge, there is no paper dealing with choosing the main language from the set
@@ -170,8 +137,39 @@ TODO
   English on this webpage comes up only as the names of products in a very long list. Only the menu is Czech. In this case 
   we need to assign this page a Czech main language tag because we want to have it as a landing page for queries in Czech.
 
+\section{Problem description}
 
-  \section{Classifier}
+  For our purpose we needed to work with specific categories of languages.
+  As a web fulltext search company we are working with non-trivial volume of web documents.
+  Due to technical limitations as well as because our services target mainly market in the Czech Republic,
+  our database of indexed documents represents sample with specific language distribution which is different from the
+  language distribution of all documents in the Internet.
+  The distribution is based primarily on the list of “main” languages –
+  Czech, English, Slovak, German, Polish and French –
+  selected as most interesting latin-alphabet languages for local users and representing  our first six classes.
+  As we are not trying to differentiate other languages, we created three other language classes specified only by writing system
+  – latin, cyrillic and other (e.g. in order - Hungarian, Bulgarian and Armenian language).
+
+  \begin{table}[]
+ \centering
+ \caption{Languages distribution in dataset - fixme} 
+ \label{langdist} 
+ \vspace{0.5cm}
+ \begin{tabular}{l||c}
+    Czech & 61.9\% \\
+    English & 19.1\% \\
+    Slovak & 3.0\% \\
+    German & 1.7\% \\
+    Polish & 0.7\% \\
+    French & 0.6\% \\ \hline
+    Latin & 7.7\% \\
+    Cyrillic & 3.2\% \\
+    Other & 3.1\% \\
+ \end{tabular}
+ \end{table}
+
+
+  \section{Solution}
 
   Our task resembles a multi-category classification problem. 
   However this approach brings a number of issues arising primarily from the fact of class multiplicity. 
@@ -183,13 +181,31 @@ TODO
   Using this approach we were able to create more general classifier, which works as a ranker of all considered languages. 
   The final model was trained using RC-Rank algorithm which is based on multiple additive oblivious decision trees \cite{maimon:datamining}. 
 
-  \section{Features}
+  \subsection{Data}
+
+  We have started by annotating 3,456 web pages randomly selected from database
+  used by Seznam.cz's full-text search engine. Each URL was manually assigned
+  by the authors to exactly one of 10 following language classes {\texttt{CS}, \texttt{DE},
+  \texttt{EN}, \texttt{FR}, \texttt{PL}, \texttt{SK}, \texttt{UNKNOWN}, 
+  \texttt{UNKNOWN\_CYRILLIC}, \texttt{UNKNOWN\_LATIN},
+  \texttt{UNKNOWN\_OTHER}. Documents in the created set (represented by their
+  URLs) were subsequently divided into two separate sets for training and
+  testing. Our training set consisted of 2,410 web pages and our testing set
+  contained the remaining 1,046 web pages. As soon as we realized that some
+  language classes are obviously not sufficiently represented in our training
+  data, we used the above-described trick (of constructing a single classifier for
+  ten languages instead of ten different classifiers) to inflate the data. Thus
+  we generated ten training instances for each annotated URL resulting in final
+  sizes of 24,100 and 10,460 web pages for training and testing set respectively.
+
+
+  \subsection{Features}
   Our classifier takes advantage of a total of 143 features (not including additional 96 mixed features) divided into four groups
   as follows: \textit{language-specific features}, \textit{generic language features}, \textit{non-language
   features} and \textit{mixed features}. In this section we briefly characterize each of these
   groups.
 
-\subsection{Language-specific features}
+\subsubsection{Language-specific features}
 
   The classifier employs 110 language-specific features falling into 11 different trait groups. Within each group a
   particular trait of a site is examined for each of 10 language classes separately. Selection of
@@ -216,7 +232,7 @@ TODO
   \end{itemize}
 
 
-\subsection{Generic language features}
+ \subsubsection{Generic language features}
     For feature generation purposes, one can examine each web page from 10 different perspecitves -
     each corresponding to one particular language (i.e. a class). With generic language features, we
     take advantage of this fact by shifting from asking questions such as \textit{what is the probability that 
@@ -227,7 +243,7 @@ TODO
     features for that language and use them as generic language features for the current view. Thus
     we end up with 11 generic language features (one for each trait group of language-specific
     features) such as \texttt{on\_page\_lang}, \texttt{backlink\_lang}, etc.
- \subsection{Non-language features}
+ \subsubsection{Non-language features}
     Not all used features are directly related to document language. Features in this group may help the
     classifier to first split the data space into distinct categories exhibiting different data patterns 
     to subsequently enhance the language detection itself. 
@@ -240,30 +256,15 @@ TODO
       \item \textit{backlink count}
     \end{itemize}
     
-  \subsection{Mixed features}
+  \subsubsection{Mixed features}
 
     To make the job easier for the classifier, we also used mixed features which combine previously
     described features in various ways. Each of mixed features is either a sum or a product of a
     pair or a triplet of some selected features.
 
-  \section{Training set}
 
-  We have started by annotating 3,456 web pages randomly selected from database
-  used by Seznam.cz's full-text search engine. Each URL was manually assigned
-  by the authors to exactly one of 10 following language classes {\texttt{CS}, \texttt{DE},
-  \texttt{EN}, \texttt{FR}, \texttt{PL}, \texttt{SK}, \texttt{UNKNOWN}, 
-  \texttt{UNKNOWN\_CYRILLIC}, \texttt{UNKNOWN\_LATIN},
-  \texttt{UNKNOWN\_OTHER}. Documents in the created set (represented by their
-  URLs) were subsequently divided into two separate sets for training and
-  testing. Our training set consisted of 2,410 web pages and our testing set
-  contained the remaining 1,046 web pages. As soon as we realized that some
-  language classes are obviously not sufficiently represented in our training
-  data, we used the above-described trick (of constructing a single classifier for
-  ten languages instead of ten different classifiers) to inflate the data. Thus
-  we generated ten training instances for each annotated URL resulting in final
-  sizes of 24,100 and 10,460 web pages for training and testing set respectively.
-
-
+  \section{Evaluation}
+  \section{Discussion}
 \bibliographystyle{abbrv}
 \bibliography{major_lang_paper}
 
