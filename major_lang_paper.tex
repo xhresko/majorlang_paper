@@ -258,16 +258,49 @@ TODO
       \item \textit{text length} 
       \item \textit{backlink count}
     \end{itemize}
-    
-  \subsubsection{Mixed features}
 
+  \subsubsection{Mixed features}
     To make the job easier for the classifier, we also used mixed features which combine previously
     described features in various ways. Each of mixed features is either a sum or a product of a
     pair or a triplet of some selected features.
 
 
-  \section{Evaluation}
-  \section{Conclusions}
+ \section{Evaluation}
+ For evaluation purpose we decided to compare proposed approach whith simple "majority vote" as we were 
+ not able to find other solutions dedicated for this task. We used 3000 training samples to create model. 
+ The rest of labeled data - approximately 1900 examples - was used as testing dataset. 
+ 
+ \begin{table}[]
+ \centering
+ \caption{Evaluation results (in percents)}
+ \label{evalres}
+ \vspace{0.5cm}
+ \begin{tabular}{l||c|c|c||c|c|c}
+       &
+     \multicolumn{3}{|c|}{\textbf{Majority vote}} &
+     \multicolumn{3}{|c}{\textbf{Our approach}} \\ \hline
+     \textbf{Lang.}    & \textbf{Prec.}  & \textbf{Rec.}   & \textbf{F1}    & \textbf{Prec.}  & \textbf{Rec.}   &  \textbf{F1}    \\ \hline
+     \textbf{Czech}    & 98.56  & 90.84  & 94.54 & 99.11  & 98.82  & 98.96  \\
+     \textbf{English}  & 86.67  & 97.76  & 91.88 & 96.78  & 99.21  & 97.98  \\
+     \textbf{Slovak}   & 97.10  & 80.72  & 88.16 & 98.80  & 98.80  & 98.80  \\
+     \textbf{German}   & 73.68  & 91.80  & 81.75 & 95.08  & 95.08  & 95.08  \\
+     \textbf{Polish}   & 81.82  & 94.74  & 87.80 & 100.00 & 100.00 & 100.00 \\
+     \textbf{French}   & 88.24  & 100.00 & 93.75 & 100.00 & 100.00 & 100.00 \\ \hline
+     \textbf{Latin}    & 85.71  & 61.94  & 71.91 & 96.50  & 89.03  & 92.62  \\
+     \textbf{Cyrillic} & 100.00 & 90.00  & 94.74 & 100.00 & 93.33  & 96.55  \\
+     \textbf{Other}    & 100.00 & 88.46  & 93.88 & 100.00 & 94.23  & 97.03  \\ \hline \hline
+     \textbf{W. sum.}  & 91.51  & 90.94  & 90.78 & 97.86  & 97.86  & 97.84  \\
+ \end{tabular}
+ \end{table}
+
+ In the result table we can observe that the simple majority vote F1 score was improved in average by 7\% (weighted average for all languages).
+ The difference ranges from 10\% - 13\% for Slovak and German to smaller improvements above 4\% for Czech language.
+ However, not all results for particular languages are so reliable as there were only few documents representing some of languages. 
+ This is obvious especially for Polish and French languages  where there were only 19, respectively 30 documents present 
+ (another two smaller language groups were Cyrillic and Other).
+
+
+ \section{Conclusions}
 \bibliographystyle{abbrv}
 \bibliography{major_lang_paper}
 
