@@ -100,15 +100,14 @@ TODO
   Our paper has X sections:
   \begin{enumerate}
   \item Introduction
-  \item Task (Popis úlohy – kolik jazyků a které (a proč tyto jazyky), na jakou množinu aplikujeme klasifikátor, jaký je poměr jazyků tam…..)
+  \item Related Work
+  \item Languages (Popis úlohy – kolik jazyků a které (a proč tyto jazyky), na jakou množinu aplikujeme klasifikátor, jaký je poměr jazyků tam…..)
 
-  \item Related work (problem se neřeší tak často, ale zakládáme se na onpage detekci)
-
-  \item Classifier  (co je zač a jak jsme si vyhráli s fíčurama)
+  \item Our Classifier  (co je zač a jak jsme si vyhráli s fíčurama)
+  \item Training data
   \item Feature description
-  \item Training set
-  \item Results
-  \item Comparison with other majorLang algorithms
+  
+  \item Evaluation
   \end{enumerate}
   
 \section{Related Work}
@@ -134,21 +133,21 @@ TODO
   of the page, possibly in its main language.” (\cite{Martins:langidentweb}) If we are to determine the major language of a website 
   we can’t confine ourselves to choose simply the language with highest proportion. A good example of this is a case of an e-shop 
   containing 80\% English and 20\% Czech. Despite this language proportion we would like to choose Czech as the main language. 
-  English on this webpage comes up only as the names of products in a very long list. Only the menu is Czech. In this case 
+  English on this webpage comes up only as the names of products in a very long list. Only the menu is in Czech. In this case 
   we need to assign this page a Czech main language tag because we want to have it as a landing page for queries in Czech.
 
-\section{Problem description}
+\section{Languages}
 
   For our purpose we needed to work with specific categories of languages.
-  As a web fulltext search company we are working with non-trivial volume of web documents.
+  As a web fulltext search company we work with non-trivial volume of web documents.
   Due to technical limitations as well as because our services target mainly market in the Czech Republic,
   our database of indexed documents represents sample with specific language distribution which is different from the
   language distribution of all documents in the Internet.
-  The distribution is based primarily on the list of “main” languages –
+  The distribution is based primarily on the list of “important” languages –
   Czech, English, Slovak, German, Polish and French –
   selected as most interesting latin-alphabet languages for local users and representing  our first six classes.
   As we are not trying to differentiate other languages, we created three other language classes specified only by writing system
-  – latin, cyrillic and other (e.g. in order - Hungarian, Bulgarian and Armenian language).
+  – latin, cyrillic and other (e.g. Hungarian, Bulgarian and Armenian language, respectively).
 
   \begin{table}[]
  \centering
@@ -169,19 +168,22 @@ TODO
  \end{table}
 
 
-  \section{Solution}
+  \section{Our classifier}
 
   Our task resembles a multi-category classification problem. 
   However this approach brings a number of issues arising primarily from the fact of class multiplicity. 
   In the first place, there is a problem with sampling as we needed to keep corresponding proportions 
   of real distribution of languages across our dataset. 
   This leads to the situation when some classes examples are quite rare and so their count is insufficient 
-  for training proper classifier. We handled this aspect of the task by joining all positive samples 
+  to train proper classifier. 
+  We approached this issue the following way. Based on the assumption that all language classes behave uniformly with respect
+  to features
+  We handled this aspect of the task by joining all positive samples 
   into one class and modifying the features by creating a special group of so called \textit{generic language features}. 
   Using this approach we were able to create more general classifier, which works as a ranker of all considered languages. 
   The final model was trained using RC-Rank algorithm which is based on multiple additive oblivious decision trees \cite{maimon:datamining}. 
 
-  \subsection{Data}
+  \section{Training Data}
 
   We used 3,456\footnote{We started by annotating over 4,000 pages.
   Unfortunately we didn't acquire all signals for all of them for technical reasons and thus
