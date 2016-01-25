@@ -175,11 +175,19 @@ TODO
   In the first place, there is a problem with sampling as we needed to keep corresponding proportions 
   of real distribution of languages across our dataset. 
   This leads to the situation when some classes examples are quite rare and so their count is insufficient 
-  to train proper classifier. 
-  We approached this issue the following way. Based on the assumption that all language classes behave uniformly with respect
-  to features
-  We handled this aspect of the task by joining all positive samples 
-  into one class and modifying the features by creating a special group of so called \textit{generic language features}. 
+  to train proper classifier. Also, this approach misses one generalisation valid for our data.
+  We assume that all language classes behave uniformly with respect to feature values. In other words, 
+  one combination of feature values based on presence of English leads to classifying the example as English whereas 
+  the same or similar combination of feature values based on presence of Czech leads to classifying an example as Czech.
+  In multi-category classification we lose this generalisation because all language-specific features are considered
+  not to behave the same/similar way. If we want to capture this generalisation we can claim that feature values based on 
+  presence of language x leads to classifying an example as x. Therefore, we decided to approach our task as binary 
+  classification problem. Apart from language specific features, such as proportion of English/Czech text on a given 
+  web page, we included a \textit{generic language features} in feature vectors. These features work as follows.
+  Our classifier looks at each example from n perspectives, where n is the number of language classes. 
+  For each language x, our binary classifier retrieves generic language features of the language x and all language-specicific
+  ones and says, whether the given example is in language x or not. 
+  
   Using this approach we were able to create more general classifier, which works as a ranker of all considered languages. 
   The final model was trained using RC-Rank algorithm which is based on multiple additive oblivious decision trees \cite{maimon:datamining}. 
 
@@ -190,18 +198,25 @@ TODO
   we didn't make use of all the data in the end.} manually annotated 
   web pages randomly selected from database
   used by Seznam.cz's full-text search engine. Each URL was manually assigned
-  by the authors to exactly one of 10 following language classes {\texttt{CS}, \texttt{DE},
+  to exactly one of 10 following language classes {\texttt{CS}, \texttt{DE},
   \texttt{EN}, \texttt{FR}, \texttt{PL}, \texttt{SK}, \texttt{UNKNOWN}, 
   \texttt{UNKNOWN\_CYRILLIC}, \texttt{UNKNOWN\_LATIN},
-  \texttt{UNKNOWN\_OTHER}. Documents in the created set (represented by their
+  \texttt{UNKNOWN\_OTHER}. Web pages in the created set (represented by their
   URLs) were subsequently divided into two separate sets for training and
   testing. Our training set consisted of 2,410 web pages and our testing set
   contained the remaining 1,046 web pages. As soon as we realized that some
   language classes are obviously not sufficiently represented in our training
-  data, we used the above-described trick (of constructing a single classifier for
-  ten languages instead of ten different classifiers) to inflate the data. Thus
-  we generated ten training instances for each annotated URL resulting in final
-  sizes of 24,100 and 10,460 web pages for training and testing set respectively.
+  data, we used the above-described trick ( constructing a single classifier for
+  ten languages instead of ten different classifiers) to expand the data set. 
+  We looked at each example from the perspective of all ten languages. The 
+  language-specific features remained the same for each ten clones of one example,
+  but generic language features took values of the language whose perspective
+  it was analyzed from  Thus, we generated nine false training instances and 
+  one true in case of generic languages feature weres set according to language 
+  of manual  annotation.
+  
+  d URL resulting in final sizes of 24,100 and 10,460 web pages 
+  for training and testing set respectively.
 
 
   \subsection{Features}
