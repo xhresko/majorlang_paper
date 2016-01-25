@@ -212,11 +212,9 @@ TODO
   language-specific features remained the same for each ten clones of one example,
   but generic language features took values of the language whose perspective
   it was analyzed from  Thus, we generated nine false training instances and 
-  one true in case of generic languages feature weres set according to language 
-  of manual  annotation.
-  
-  d URL resulting in final sizes of 24,100 and 10,460 web pages 
-  for training and testing set respectively.
+  one true in case of generic languages feature were properly set according to 
+  language of manual  annotation. The final size of our datasets was
+  24,100 and 10,460 web pages for training and testing set respectively.
 
 
   \subsection{Features}
@@ -227,19 +225,19 @@ TODO
 
 \subsubsection{Language-specific features}
 
-  The classifier employs 110 language-specific features falling into 11 different trait groups. Within each group a
+  The classifier employs 110 language-specific features falling into 11 different  groups. Within each group a
   particular trait of a site is examined for each of 10 language classes separately. Selection of
   inspected language traits follows: 
   \begin{itemize}
     \item \textit{on-page language detection} - E.g. feature named \texttt{on\_page\_CS} determines the
       probability of a web page being in the Czech language based on analysis of all the text
-      contained on the page being scrutinized. Similarly \texttt{on\_page\_DE} determines the
-      probability for German language etc. Besides the above-described all-text analysis, the \textit{on-page 
-      detector} is also used for analysing language of \textit{site-wide} text part (\texttt{SWT}) and
-    \textit{non-site-wide} text (\texttt{non-SWT}) part of the document separately as site-wide texts 
-      such as menus may tend to be in different language than site-specific texts such as articles' bodies.
+      contained on the page with on-page detector §CITACE REHUREK§. Similarly \texttt{on\_page\_DE} determines the
+      probability for German language etc. Besides the above-described analysis of whole text, the \textit{on-page 
+      detector} is also used for analysing language of \textit{site-wide} text (\texttt{SWT}) and
+    \textit{non-site-wide} text (\texttt{non-SWT}) of the document separately as site-wide texts 
+      such as menus might be in different language than site-specific texts such as articles' bodies.
     \item \textit{backlink language prediction} - probabilities of the page being in a particular
-      language based on language characteristics of other pages referencing it (e.g.
+      language based on language characteristics of other pages referencing to it (e.g.
       \texttt{backlink\_EN})
     \item \textit{language statistics aggregated for domains} - language statistics for the
       containing domains of different levels
@@ -269,11 +267,13 @@ TODO
     to subsequently enhance the language detection itself. 
 
     \begin{itemize}
-      \item \textit{type of site} - probabilities of the site being an e-shop, photo gallery etc.
+      \item \textit{type of site} - probabilities of the site being an e-shop, photo gallery etc. We used
+      our classififer trained to recognize such web sites.
       \item \textit{prices and currencies} - total numbers of matches of a set of regular
       expressions designed to detect prices in particular currencies (e.g. \texttt{\$35}) 
       \item \textit{text length} 
-      \item \textit{backlink count}
+      \item \textit{backlink count} - this feature was used in order to weight the influence of feature
+      backlink language prediction.
     \end{itemize}
 
   \subsubsection{Mixed features}
@@ -282,7 +282,7 @@ TODO
     pair or a triplet of some selected features.
 
 
- \section{Evaluation}
+ \section{Evaluation §prihodit srovnani s minulym algoritmem§}
  For evaluation purpose we decided to compare proposed approach whith simple "majority vote" as we were 
  not able to find other solutions dedicated for this task. We used 3000 training samples to create model. 
  The rest of labeled data - approximately 1900 examples - was used as testing dataset. 
@@ -318,6 +318,13 @@ TODO
 
 
  \section{Conclusions}
+ ...
+ To make current alorhitm perform even better, we see an opportunity in web page type
+ classifier. If this worked with higher precision, it would be possible to set aside
+ difficult web pages such as e-shops and machine learning algorhitm would be able to
+ pick better features.
+ The above desribed approach towards major language detection has been implemented
+ and is currently used in Seznam.cz .
 \bibliographystyle{abbrv}
 \bibliography{major_lang_paper}
 
