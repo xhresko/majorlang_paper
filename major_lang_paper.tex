@@ -170,7 +170,7 @@ TODO
 
   \section{Our classifier}
 
-  Our task resembles a multi-category classification problem. 
+  Our task resembles a multi-class classification problem. 
   However this approach brings a number of issues arising primarily from the fact of class multiplicity. 
   In the first place, there is a problem with sampling as we needed to keep corresponding proportions 
   of real distribution of languages across our dataset. 
@@ -181,12 +181,12 @@ TODO
   the same or similar combination of feature values based on presence of Czech leads to classifying an example as Czech.
   In multi-category classification we lose this generalisation because all language-specific features are considered
   not to behave the same/similar way. If we want to capture this generalisation we can claim that feature values based on 
-  presence of language x leads to classifying an example as x. Therefore, we decided to approach our task as binary 
+  presence of language L leads to classifying an example as L. Therefore, we decided to approach our task as binary 
   classification problem. Apart from language specific features, such as proportion of English/Czech text on a given 
   web page, we included a \textit{generic language features} in feature vectors. These features work as follows.
   Our classifier looks at each example from n perspectives, where n is the number of language classes. 
-  For each language x, our binary classifier retrieves generic language features of the language x and all language-specicific
-  ones and says, whether the given example is in language x or not. 
+  For each language L, our binary classifier retrieves generic language features of the language L and all language-specicific
+  ones and says, whether the given example is in language L or not. 
   
   Using this approach we were able to create more general classifier, which works as a ranker of all considered languages. 
   The final model was trained using RC-Rank algorithm which is based on multiple additive oblivious decision trees \cite{maimon:datamining}. 
@@ -318,14 +318,16 @@ TODO
 
 
  \section{Conclusions}
- Seznam.cz used to detect the major language of a website by hand crafted al
- Machine learning algorhitms were applied to 
+ Seznam.cz used to detect the major language of a website by hand crafted algorhitm
+ employing a decision tree implemented as if conditions. Applying machine learning
+ to this task brought Seznam.cz significant improvement in precision and recall.
+ 
  To make current alorhitm perform even better, we see an opportunity in web page type
  classifier. If this worked with higher precision, it would be possible to set aside
  difficult web pages such as e-shops and machine learning algorhitm would be able to
  pick better features.
  The above desribed approach towards major language detection has been implemented
- and is currently used in Seznam.cz .
+ and is currently used in Seznam.cz to dete
 \bibliographystyle{abbrv}
 \bibliography{major_lang_paper}
 
