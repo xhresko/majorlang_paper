@@ -84,32 +84,42 @@
 \begin{abstract}
 TODO
 \end{abstract}
-\keywords{language detection} % NOT required for Proceedings
+\keywords{language detection, classification, LETOR} % NOT required for Proceedings
 
 \section{Introduction}
-  Our main goal was to choose Major Language given on-page language detection results and other features. Finding out languages and their proportion on a webpage is well-established topic in computational processing of web pages (citace). However, determining which of them is major one is not.
+  Delivering the content based on the preferences of the user is one of the basic tasks in the area of information retrieval.
+  The most important content parameters is called relevance. However, this parameter contains somehow inherently the parameter of usability.
+  This hidden parameter could be defined as a probability, that user will be able to use the content of particular document to satisfy his (intended) needs.
+  Usability of the document is not solely a parameter of a document. We could say that it is a parameter of the user - document relation .
 
-  Major Language of a given webpage is the intended language of all potential queries aiming at a given webpage. 
-
-  Intended language is the language of web pages in which a user intends to find results in SERP. This definition implies that if a user searches for a webpages in a language x, our major goal is to provide webpages in language x.
-  It is essential topic for any full text search engine to return webpages relevant to a query. One of the dimensions of relevancy is also a language. For each webpage, we thus need to ask: “If the user wanted to find this page, in which language would she formulate the query?” Our interpretation of major language presupposes that user knows what should be the language of the answer to her query.
-  This definition strives to exclude any ambiguity. There are very few contexts in which there would be more queries in various languages aiming at the same page.
-  We approached this topic with a machine-learning method based on our implementation of multiple additive oblivious decision trees called RC-rank.
-
-
-  Our paper has X sections:
-  \begin{enumerate}
-  \item Introduction
-  \item Related Work
-  \item Languages (Popis úlohy – kolik jazyků a které (a proč tyto jazyky), na jakou množinu aplikujeme klasifikátor, jaký je poměr jazyků tam…..)
-
-  \item Our Classifier  (co je zač a jak jsme si vyhráli s fíčurama)
-  \item Training data
-  \item Feature description
+  Language of the document affects the usability with different intensity. The weight of its influence depends on the type of document content.
+  For example, there is almost no need for understanding the language of the page if it provides mainly images or video content.
+  Document readability is telling us if particular user is able to "use" texts on the web page for his intent (e.g. reading a joke, comments or navigating menus).
   
-  \item Evaluation
-  \end{enumerate}
+  The readability could be easily measured if we know that the page contains texts written in only one language and if we know the languages known by the user.
+  E.g. we can say that the document written solely in some language $L_x$ would not be readable for a reader that does not know language $L_x$. 
+  In this case the so called "major" language of the page is $L_x$, or we can write that  $L_{maj} = L_x$.
   
+  However, there are many documents that contains more than one language.
+  Finding out languages and their proportion on a webpage is well-established topic in computational processing of web pages (citace).
+  For these it could be harder to decide which language would be the "major".
+  %However, determining which of them is major one is not.
+ 
+  Let us define the "major" language more precisely. 
+  
+  "Major" language ($L_{maj}$) of a given webpage is the intended language of all potential queries aiming at a given webpage.
+  Intended language is the language of web pages in which a user intends to find results in SERP. 
+  This definition implies that if a user searches for a webpages in a language $L_x$, our major goal is to provide webpages for which $L_{maj} = L_x$.
+  
+  For each webpage, we thus need to ask: “If the user wanted to find this page, in which language would she formulate the query?” 
+  Our interpretation of major language presupposes that user knows what should be the language of the answer to her query.
+
+  To choose the language $L_{maj}$ we used on-page language detection results and other features.
+ We approached this topic with a machine-learning method based on our implementation of multiple additive oblivious decision trees called RC-rank.
+  %It is essential topic for any full text search engine to return webpages relevant to a query. 
+  %One of the dimensions of relevancy is also a language. 
+  %This definition strives to exclude any ambiguity. There are very few contexts in which there would be more queries in various languages aiming at the same page.
+
 \section{Related Work}
 
   To our knowledge, there is no paper dealing with choosing the main language from the set
@@ -131,7 +141,7 @@ TODO
   (blocks are identied in the HTML parsing stage, taking in account the markup information) as three times more important 
   than the normal text. The rationale for this is that the longest block will very likely correspond to a good description 
   of the page, possibly in its main language.” (\cite{Martins:langidentweb}) If we are to determine the major language of a website 
-  we can’t confine ourselves to choose simply the language with highest proportion. A good example of this is a case of an e-shop 
+  we can’t confine ourselves to choose simply the language with highest proportion. A good example of this is a case of an online marketplace
   containing 80\% English and 20\% Czech. Despite this language proportion we would like to choose Czech as the main language. 
   English on this webpage comes up only as the names of products in a very long list. Only the menu is in Czech. In this case 
   we need to assign this page a Czech main language tag because we want to have it as a landing page for queries in Czech.
@@ -151,7 +161,7 @@ TODO
 
   \begin{table}[]
  \centering
- \caption{Languages distribution in dataset - fixme} 
+ \caption{Languages distribution in dataset} 
  \label{langdist} 
  \vspace{0.5cm}
  \begin{tabular}{l||c}
@@ -168,10 +178,10 @@ TODO
  \end{table}
 
 
-  \section{Our classifier}
+  \section{Classifier}
 
   Our task resembles a multi-class classification problem. 
-  However this approach brings a number of issues arising primarily from the fact of class multiplicity. 
+  This approach brings a number of issues arising primarily from the fact of class multiplicity. 
   In the first place, there is a problem with sampling as we needed to keep corresponding proportions 
   of real distribution of languages across our dataset. 
   This leads to the situation when some classes examples are quite rare and so their count is insufficient 
@@ -191,7 +201,7 @@ TODO
   Using this approach we were able to create more general classifier, which works as a ranker of all considered languages. 
   The final model was trained using RC-Rank algorithm which is based on multiple additive oblivious decision trees \cite{maimon:datamining}. 
 
-  \section{Training Data}
+  \section{Training data}
 
   We used 3,456\footnote{We started by annotating over 4,000 pages.
   Unfortunately we didn't acquire all signals for all of them for technical reasons and thus
@@ -201,20 +211,22 @@ TODO
   to exactly one of 10 following language classes {\texttt{CS}, \texttt{DE},
   \texttt{EN}, \texttt{FR}, \texttt{PL}, \texttt{SK}, \texttt{UNKNOWN}, 
   \texttt{UNKNOWN\_CYRILLIC}, \texttt{UNKNOWN\_LATIN},
-  \texttt{UNKNOWN\_OTHER}. Web pages in the created set (represented by their
+  \texttt{UNKNOWN\_OTHER}. 
+  
+  Web pages in the created set (represented by their
   URLs) were subsequently divided into two separate sets for training and
   testing. Our training set consisted of 2,410 web pages and our testing set
   contained the remaining 1,046 web pages. As soon as we realized that some
   language classes are obviously not sufficiently represented in our training
   data, we used the above-described trick ( constructing a single classifier for
-  ten languages instead of ten different classifiers) to expand the data set. 
+  ten languages instead of ten different classifiers) to expand the data set as follows. 
   We looked at each example from the perspective of all ten languages. The 
   language-specific features remained the same for each ten clones of one example,
   but generic language features took values of the language whose perspective
   it was analyzed from  Thus, we generated nine false training instances and 
   one true in case of generic languages feature were properly set according to 
   language of manual  annotation. The final size of our datasets was
-  24,100 and 10,460 web pages for training and testing set respectively.
+  24,100 and 10,460 samples for training and testing set respectively.
 
 
   \subsection{Features}
@@ -229,16 +241,21 @@ TODO
   particular trait of a site is examined for each of 10 language classes separately. Selection of
   inspected language traits follows: 
   \begin{itemize}
-    \item \textit{on-page language detection} - E.g. feature named \texttt{on\_page\_CS} determines the
-      probability of a web page being in the Czech language based on analysis of all the text
-      contained on the page with on-page detector    CITACE REHUREK     . Similarly \texttt{on\_page\_DE} determines the
-      probability for German language etc. Besides the above-described analysis of whole text, the \textit{on-page 
+    \item \textit{on-page language detection} - 
+      %E.g. feature named \texttt{on\_page\_CS} 
+      determines the probability of a web page being written in some particular
+      %in the Czech 
+      language based on analysis of all the text
+      contained on the page with on-page detector    CITACE REHUREK     . 
+      %Similarly \texttt{on\_page\_DE} determines the
+      %probability for German language etc. 
+      Besides the above-described analysis of whole text, the \textit{on-page 
       detector} is also used for analysing language of \textit{site-wide} text (\texttt{SWT}) and
     \textit{non-site-wide} text (\texttt{non-SWT}) of the document separately as site-wide texts 
       such as menus might be in different language than site-specific texts such as articles' bodies.
     \item \textit{backlink language prediction} - probabilities of the page being in a particular
-      language based on language characteristics of other pages referencing to it (e.g.
-      \texttt{backlink\_EN})
+      language based on language characteristics of other pages referencing to it 
+      %(e.g.\texttt{backlink\_EN})
     \item \textit{language statistics aggregated for domains} - language statistics for the
       containing domains of different levels
     \item \textit{language specifications in} HTML - such as \texttt{<HTML lang=...>} or \texttt{<HTML
@@ -264,28 +281,27 @@ TODO
  \subsubsection{Non-language features}
     Not all used features are directly related to document language. Features in this group may help the
     classifier to first split the data space into distinct categories exhibiting different data patterns 
-    to subsequently enhance the language detection itself. 
+    to subsequently enhance the language detection itself.
 
     \begin{itemize}
-      \item \textit{type of site} - probabilities of the site being an e-shop, photo gallery etc. We used
+      \item \textit{type of site} - probabilities of the site being an online marketplace, image gallery etc. We used
       our classififer trained to recognize such web sites.
       \item \textit{prices and currencies} - total numbers of matches of a set of regular
       expressions designed to detect prices in particular currencies (e.g. \texttt{\$35}) 
-      \item \textit{text length} 
+      \item \textit{text length} - defined as a number of tokens
       \item \textit{backlink count} - this feature was used in order to weight the influence of feature
-      backlink language prediction.
+      back-link language prediction.
     \end{itemize}
 
   \subsubsection{Mixed features}
     To make the job easier for the classifier, we also used mixed features which combine previously
     described features in various ways. Each of mixed features is either a sum or a product of a
-    pair or a triplet of some selected features.
+    pair or a triplet of some selected features. 
 
-
- \section{Evaluation ....prihodit srovnani s minulym algoritmem, nebo tabulku s fíčurama?,DODAT KOMENT K TRÍČKKU JAK JSME UDĚLAL BINARY CLASSIFIER}
+    \section{Evaluation}
  For evaluation purpose we decided to compare proposed approach whith simple "majority vote"...CITACE.... as we were 
- not able to find other solutions dedicated for this task. We used 3000 training samples to create model. 
- The rest of labeled data - approximately 1900 examples - was used as testing dataset. 
+ not able to find other solutions dedicated for this particular task. We used 3000 training samples to create model. 
+ The rest of labeled data - approximately 1900 examples - was used as testing dataset.
  
  \begin{table}[]
  \centering
@@ -312,7 +328,7 @@ TODO
 
  In the result table we can observe that the simple majority vote F1 score was improved in average by 7\% (weighted average for all languages).
  The difference ranges from 10\% - 13\% for Slovak and German to smaller improvements above 4\% for Czech language.
- However, not all results for particular languages are so reliable as there were only few documents representing some of languages. 
+ However, not all results for particular languages are so reliable as there were only few documents representing some of languages.
  This is obvious especially for Polish and French languages  where there were only 19, respectively 30 documents present 
  (another two smaller language groups were Cyrillic and Other).
 
@@ -322,12 +338,12 @@ TODO
  employing a decision tree implemented as if conditions. Applying machine learning
  to this task brought Seznam.cz significant improvement in precision and recall.
  
- To make current alorhitm perform even better, we see an opportunity in web page type
+ To make current algorhitm perform even better, we see an opportunity in web page type
  classifier. If this worked with higher precision, it would be possible to set aside
- difficult web pages such as e-shops and machine learning algorhitm would be able to
- pick better features.
+ difficult web pages such as online marketplaces and the learning algorhitm would be able to
+ use different features.
  The above desribed approach towards major language detection has been implemented
- and is currently used in Seznam.cz to dete
+ and is currently used in Seznam.cz to date.
 \bibliographystyle{abbrv}
 \bibliography{major_lang_paper}
 
