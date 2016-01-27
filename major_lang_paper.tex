@@ -125,7 +125,8 @@ TODO
   To our knowledge, there is no paper dealing with choosing the main language from the set
   of languages identified on a webpage. Except for a few remarks on this topic in papers 
   focusing on on-page language detection this topic seems to be unexplored. 
-  Necessary prerequisite for our research is on-page detection. Many researchers approached this topic
+  
+  Necessary prerequisite for our research is on-page language detection. Many researchers approached this topic
   from various perspectives. For a comparison of some of these models, see \cite{Baldwin:shortlong}. 
   First algorithms were based on n-grams comparing frequencies of n-grams in a given document with 
   language models - frequency list of n-grams \cite{trenkle:ngram}. Current algorithms classifying languages 
@@ -135,6 +136,8 @@ TODO
   “We propose and evaluate a new method, which constructs language models based on word relevance. We also 
   extend our method to allow us to efficiently and automatically segment the input text into blocks of individual 
   languages, in case of multiple-language documents.” (\cite{Rehurek:languageidentification})
+  
+  
   We would like to mention one example of how other researchers have dealt with our task. As it was not the main goal of 
   their paper, their solution is very simple:
   “In these cases, we try to re-apply the n-gram algorithm, weighting the largest continuous text block in the document 
@@ -246,7 +249,7 @@ TODO
       determines the probability of a web page being written in some particular
       %in the Czech 
       language based on analysis of all the text
-      contained on the page with on-page detector    CITACE REHUREK     . 
+      contained on the page with on-page detector based on (\cite{Rehurek:languageidentification} . 
       %Similarly \texttt{on\_page\_DE} determines the
       %probability for German language etc. 
       Besides the above-described analysis of whole text, the \textit{on-page 
@@ -335,8 +338,8 @@ TODO
 
  \section{Conclusions}
  Seznam.cz used to detect the major language of a website by hand crafted algorhitm
- employing a decision tree implemented as if conditions. Applying machine learning
- to this task brought Seznam.cz significant improvement in precision and recall.
+ employing a decision tree with if conditions branches. Applying machine learning
+ to this task brought Seznam.cz significant improvement in precision and recall in language detection.
  
  To make current algorhitm perform even better, we see an opportunity in web page type
  classifier. If this worked with higher precision, it would be possible to set aside
