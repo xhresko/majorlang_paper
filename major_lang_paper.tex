@@ -87,9 +87,9 @@ TODO
 \keywords{language detection, classification, LETOR} % NOT required for Proceedings
 
 \section{Introduction}
-  Delivering the content based on the preferences of the user is one of the basic tasks in the area of information retrieval.
-  The most important content parameters is called relevance. However, this parameter contains somehow inherently the parameter of usability.
-  This hidden parameter could be defined as a probability, that user will be able to use the content of particular document to satisfy his (intended) needs.
+  Delivering the content based on the preferences of the user is one of the basic tasks of information retrieval systems.
+  The most important content parameter is called relevance. However, this parameter contains somehow inherently other parameters one of which we could call .
+  This hidden parameter could be defined as a probability that user will be able to use the content of particular document to satisfy his (intended) needs.
   Usability of the document is not solely a parameter of a document. We could say that it is a parameter of the user - document relation .
 
   Language of the document affects the usability with different intensity. The weight of its influence depends on the type of document content.
@@ -97,8 +97,8 @@ TODO
   Document readability is telling us if particular user is able to "use" texts on the web page for his intent (e.g. reading a joke, comments or navigating menus).
   
   The readability could be easily measured if we know that the page contains texts written in only one language and if we know the languages known by the user.
-  E.g. we can say that the document written solely in some language $L_x$ would not be readable for a reader that does not know language $L_x$. 
-  In this case the so called "major" language of the page is $L_x$, or we can write that  $L_{maj} = L_x$.
+  E.g. we can say that the document written solely in some language $L_a$ would not be readable for a reader that does not know language $L_a$. 
+  In this case the so called "major" language of the page is $L_a$, or we can write that  $L_{maj} = L_a$.
   
   However, there are many documents that contains more than one language.
   Finding out languages and their proportion on a webpage is well-established topic in computational processing of web pages (citace).
@@ -109,7 +109,7 @@ TODO
   
   "Major" language ($L_{maj}$) of a given webpage is the intended language of all potential queries aiming at a given webpage.
   Intended language is the language of web pages in which a user intends to find results in SERP. 
-  This definition implies that if a user searches for a webpages in a language $L_x$, our major goal is to provide webpages for which $L_{maj} = L_x$.
+  This definition implies that if a user searches for a webpages in a language $L_a$, our major goal is to provide webpages for which $L_{maj} = L_a$.
   
   For each webpage, we thus need to ask: “If the user wanted to find this page, in which language would she formulate the query?” 
   Our interpretation of major language presupposes that user knows what should be the language of the answer to her query.
@@ -154,9 +154,9 @@ TODO
   For our purpose we needed to work with specific categories of languages.
   As a web fulltext search company we work with non-trivial volume of web documents.
   Due to technical limitations as well as because our services target mainly market in the Czech Republic,
-  our database of indexed documents represents sample with specific language distribution which is different from the
+  our database of indexed documents represents sample with specific language distribution (Table \ref{langdist}) which is different from the
   language distribution of all documents in the Internet.
-  The distribution is based primarily on the list of “important” languages –
+  The distribution is based primarily on the list of "prefered" languages –
   Czech, English, Slovak, German, Polish and French –
   selected as most interesting latin-alphabet languages for local users and representing  our first six classes.
   As we are not trying to differentiate other languages, we created three other language classes specified only by writing system
@@ -194,15 +194,16 @@ TODO
   the same or similar combination of feature values based on presence of Czech leads to classifying an example as Czech.
   In multi-category classification we lose this generalisation because all language-specific features are considered
   not to behave the same/similar way. If we want to capture this generalisation we can claim that feature values based on 
-  presence of language L leads to classifying an example as L. Therefore, we decided to approach our task as binary 
+  presence of language $L_a$ leads to classifying an example as $L_a$. Therefore, we decided to approach our task as binary 
   classification problem. Apart from language specific features, such as proportion of English/Czech text on a given 
   web page, we included a \textit{generic language features} in feature vectors. These features work as follows.
   Our classifier looks at each example from n perspectives, where n is the number of language classes. 
-  For each language L, our binary classifier retrieves generic language features of the language L and all language-specicific
-  ones and says, whether the given example is in language L or not. 
+  For each language $L_i$, our binary classifier retrieves generic language features of the language $L_i$ and all language-specicific
+  ones and says, whether the given example is in language $L_i$ or not. 
   
-  Using this approach we were able to create more general classifier, which works as a ranker of all considered languages. 
-  The final model was trained using RC-Rank algorithm which is based on multiple additive oblivious decision trees \cite{maimon:datamining}. 
+  Using this approach we were able to create more general classifier, which works as a ranker of all considered languages.
+  The final model was trained using RC-Rank algorithm which is based on multiple additive oblivious decision trees \cite{maimon:datamining}.
+  The RC-Rank algorithm is suitable for both classification and ranking. 
 
   \section{Training data}
 
@@ -307,26 +308,72 @@ TODO
  not able to find other solutions dedicated for this particular task. We used 3000 training samples to create model. 
  The rest of labeled data - approximately 1900 examples - was used as testing dataset.
  
+% \begin{table}[]
+% \centering
+% \caption{Evaluation results (in percents)}
+% \label{evalres}
+% \vspace{0.5cm}
+% \begin{tabular}{l||c|c|c||c|c|c}
+%       &
+%     \multicolumn{3}{|c|}{\textbf{Majority vote}} &
+%     \multicolumn{3}{|c}{\textbf{Our approach}} \\ \hline
+%     \textbf{Lang.}    & \textbf{Prec.}  & \textbf{Rec.}   & \textbf{F1}    & \textbf{Prec.}  & \textbf{Rec.}   &  \textbf{F1}    \\ \hline
+%     \textbf{Czech}    & 98.56  & 90.84  & 94.54 & 99.11  & 98.82  & 98.96  \\
+%     \textbf{English}  & 86.67  & 97.76  & 91.88 & 96.78  & 99.21  & 97.98  \\
+%     \textbf{Slovak}   & 97.10  & 80.72  & 88.16 & 98.80  & 98.80  & 98.80  \\
+%     \textbf{German}   & 73.68  & 91.80  & 81.75 & 95.08  & 95.08  & 95.08  \\
+%     \textbf{Polish}   & 81.82  & 94.74  & 87.80 & 100.00 & 100.00 & 100.00 \\
+%     \textbf{French}   & 88.24  & 100.00 & 93.75 & 100.00 & 100.00 & 100.00 \\ \hline
+%     \textbf{Latin}    & 85.71  & 61.94  & 71.91 & 96.50  & 89.03  & 92.62  \\
+%     \textbf{Cyrillic} & 100.00 & 90.00  & 94.74 & 100.00 & 93.33  & 96.55  \\
+%     \textbf{Other}    & 100.00 & 88.46  & 93.88 & 100.00 & 94.23  & 97.03  \\ \hline \hline
+%     \textbf{W. sum.}  & 91.51  & 90.94  & 90.78 & 97.86  & 97.86  & 97.84  \\
+% \end{tabular}
+% \end{table}
+
+
+\begin{table}[]
+ \centering
+ \caption{Evaluation results (in percents)}
+ \label{evalres}
+ \vspace{0.5cm}
+ \begin{tabular}{l||c|c|c|}
+       &
+     \multicolumn{3}{|c}{\textbf{Majority vote}} \\ \hline
+     \textbf{Lang.}    & \textbf{Prec.}  & \textbf{Rec.}   & \textbf{F1}  \\ \hline
+     \textbf{Czech}    & 98.56  & 90.84  & 94.54 \\
+     \textbf{English}  & 86.67  & 97.76  & 91.88 \\
+     \textbf{Slovak}   & 97.10  & 80.72  & 88.16 \\
+     \textbf{German}   & 73.68  & 91.80  & 81.75 \\
+     \textbf{Polish}   & 81.82  & 94.74  & 87.80 \\
+     \textbf{French}   & 88.24  & 100.00 & 93.75 \\ \hline
+     \textbf{Latin}    & 85.71  & 61.94  & 71.91 \\
+     \textbf{Cyrillic} & 100.00 & 90.00  & 94.74 \\
+     \textbf{Other}    & 100.00 & 88.46  & 93.88 \\ \hline \hline
+     \textbf{W. sum.}  & 91.51  & 90.94  & 90.78 \\
+ \end{tabular}
+ \end{table}
+
+
  \begin{table}[]
  \centering
  \caption{Evaluation results (in percents)}
  \label{evalres}
  \vspace{0.5cm}
- \begin{tabular}{l||c|c|c||c|c|c}
+ \begin{tabular}{l||c|c|c|}
        &
-     \multicolumn{3}{|c|}{\textbf{Majority vote}} &
      \multicolumn{3}{|c}{\textbf{Our approach}} \\ \hline
-     \textbf{Lang.}    & \textbf{Prec.}  & \textbf{Rec.}   & \textbf{F1}    & \textbf{Prec.}  & \textbf{Rec.}   &  \textbf{F1}    \\ \hline
-     \textbf{Czech}    & 98.56  & 90.84  & 94.54 & 99.11  & 98.82  & 98.96  \\
-     \textbf{English}  & 86.67  & 97.76  & 91.88 & 96.78  & 99.21  & 97.98  \\
-     \textbf{Slovak}   & 97.10  & 80.72  & 88.16 & 98.80  & 98.80  & 98.80  \\
-     \textbf{German}   & 73.68  & 91.80  & 81.75 & 95.08  & 95.08  & 95.08  \\
-     \textbf{Polish}   & 81.82  & 94.74  & 87.80 & 100.00 & 100.00 & 100.00 \\
-     \textbf{French}   & 88.24  & 100.00 & 93.75 & 100.00 & 100.00 & 100.00 \\ \hline
-     \textbf{Latin}    & 85.71  & 61.94  & 71.91 & 96.50  & 89.03  & 92.62  \\
-     \textbf{Cyrillic} & 100.00 & 90.00  & 94.74 & 100.00 & 93.33  & 96.55  \\
-     \textbf{Other}    & 100.00 & 88.46  & 93.88 & 100.00 & 94.23  & 97.03  \\ \hline \hline
-     \textbf{W. sum.}  & 91.51  & 90.94  & 90.78 & 97.86  & 97.86  & 97.84  \\
+     \textbf{Lang.}    & \textbf{Prec.}  & \textbf{Rec.}   & \textbf{F1} \\ \hline
+     \textbf{Czech}    & 99.11  & 98.82  & 98.96  \\
+     \textbf{English}  & 96.78  & 99.21  & 97.98  \\
+     \textbf{Slovak}   & 98.80  & 98.80  & 98.80  \\
+     \textbf{German}   & 95.08  & 95.08  & 95.08  \\
+     \textbf{Polish}   & 100.00 & 100.00 & 100.00 \\
+     \textbf{French}   & 100.00 & 100.00 & 100.00 \\ \hline
+     \textbf{Latin}    & 96.50  & 89.03  & 92.62  \\
+     \textbf{Cyrillic} & 100.00 & 93.33  & 96.55  \\
+     \textbf{Other}    & 100.00 & 94.23  & 97.03  \\ \hline \hline
+     \textbf{W. sum.}  & 97.86  & 97.86  & 97.84  \\
  \end{tabular}
  \end{table}
 
