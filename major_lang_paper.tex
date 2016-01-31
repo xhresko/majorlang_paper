@@ -28,7 +28,6 @@
 \documentclass{acm_proc_article-sp}
 
 \usepackage[utf8]{inputenc}
-
 \begin{document}
 
 \title{Major Language Detection}
@@ -88,34 +87,42 @@ TODO
 
 \section{Introduction}
   Delivering the content based on the preferences of the user is one of the basic tasks of information retrieval systems.
-  The most important content parameter is called relevance. However, this parameter contains somehow inherently other parameters one of which we could call .
-  This hidden parameter could be defined as a probability that user will be able to use the content of particular document to satisfy his (intended) needs.
-  Usability of the document is not solely a parameter of a document. We could say that it is a parameter of the user - document relation .
+  The most important content parameter is called relevance. 
+  However, this parameter contains somehow inherently other parameters one of which we could call usability.
+  This hidden parameter could be defined as a probability that user will be able to use the content of particular 
+  document to satisfy his (intended) needs.
+  Usability of the document is not solely a parameter of a document. 
+  We could say that it is a parameter of the user - document relation.
 
-  Language of the document affects the usability with different intensity. The weight of its influence depends on the type of document content.
+  Language of the document affects the usability with different intensity. 
+  The weight of its influence depends on the type of document content.
   For example, there is almost no need for understanding the language of the page if it provides mainly images or video content.
-  Document readability is telling us if particular user is able to "use" texts on the web page for his intent (e.g. reading a joke, comments or navigating menus).
+  Document readability is telling us if particular user is able to
+  "use" texts on the web page for his intent (e.g. reading a joke, comments or navigation elements).
   
-  The readability could be easily measured if we know that the page contains texts written in only one language and if we know the languages known by the user.
-  E.g. we can say that the document written solely in some language $L_a$ would not be readable for a reader that does not know language $L_a$. 
-  In this case the so called "major" language of the page is $L_a$, or we can write that  $L_{maj} = L_a$.
+  The readability could be easily measured if we know that the page contains texts written in only one language 
+  and if we know the languages known by the user.
+  E.g. we can say that the document written solely in some language $L_a$ would not be readable for a reader 
+  that does not know language $L_a$. 
+  In this case (when there is only one language used on the page) 
+  the so called "major" language of the page is $L_a$, further on denoted by $L_{maj} = L_a$.
   
   However, there are many documents that contains more than one language.
   Finding out languages and their proportion on a webpage is well-established topic in computational processing of web pages (citace).
-  For these it could be harder to decide which language would be the "major".
-  %However, determining which of them is major one is not.
+  It could be harder to decide which language would be the "major" for these.
  
   Let us define the "major" language more precisely. 
   
   "Major" language ($L_{maj}$) of a given webpage is the intended language of all potential queries aiming at a given webpage.
   Intended language is the language of web pages in which a user intends to find results in SERP. 
-  This definition implies that if a user searches for a webpages in a language $L_a$, our major goal is to provide webpages for which $L_{maj} = L_a$.
+  This definition implies that if a user searches for webpages in a language $L_a$, 
+  our major goal is to provide webpages for which $L_{maj} = L_a$.
   
-  For each webpage, we thus need to ask: “If the user wanted to find this page, in which language would she formulate the query?” 
-  Our interpretation of major language presupposes that user knows what should be the language of the answer to her query.
+  For each webpage, we thus need to ask: “If the user wanted to find this page, in which language would he formulate the query?” 
+  Our interpretation of major language presupposes that user knows what should be the language of the answer to his query.
 
   To choose the language $L_{maj}$ we used on-page language detection results and other features.
- We approached this topic with a machine-learning method based on our implementation of multiple additive oblivious decision trees called RC-rank.
+  We approached this topic with a machine-learning method based on our implementation of multiple additive oblivious decision trees called RC-rank.
   %It is essential topic for any full text search engine to return webpages relevant to a query. 
   %One of the dimensions of relevancy is also a language. 
   %This definition strives to exclude any ambiguity. There are very few contexts in which there would be more queries in various languages aiming at the same page.
@@ -146,7 +153,7 @@ TODO
   of the page, possibly in its main language.” (\cite{Martins:langidentweb}) If we are to determine the major language of a website 
   we can’t confine ourselves to choose simply the language with highest proportion. A good example of this is a case of an online marketplace
   containing 80\% English and 20\% Czech. Despite this language proportion we would like to choose Czech as the main language. 
-  English on this webpage comes up only as the names of products in a very long list. Only the menu is in Czech. In this case 
+  English on this webpage comes up only as the names of products in a very long list. Only the navigational elements are labeled in Czech. In this case 
   we need to assign this page a Czech main language tag because we want to have it as a landing page for queries in Czech.
 
 \section{Languages}
@@ -200,10 +207,22 @@ TODO
   Our classifier looks at each example from n perspectives, where n is the number of language classes. 
   For each language $L_i$, our binary classifier retrieves generic language features of the language $L_i$ and all language-specicific
   ones and says, whether the given example is in language $L_i$ or not. 
-  
+
+
+  \begin{figure}
+      \caption{Classification vs. Ranking} 
+     \label{examples} 
+ 
+ \vspace{0.5cm}
+      \centering
+      \includegraphics[scale=0.5]{multiclass.pdf}
+ \end{figure}
+
   Using this approach we were able to create more general classifier, which works as a ranker of all considered languages.
-  The final model was trained using RC-Rank algorithm which is based on multiple additive oblivious decision trees \cite{maimon:datamining}.
-  The RC-Rank algorithm is suitable for both classification and ranking. 
+  The final model was trained using RC-Rank algorithm which is internal algorithm of Seznam.cz suitable both for classification and ranking.
+  It is based on gradient boosting over decision trees. The trees generated by algorithm are also oblivious, 
+  which means that every split on the same level of tree is created on the same feature and value.
+  This feature keeps the model safe from overfitting.
 
   \section{Training data}
 
@@ -385,15 +404,15 @@ TODO
 
 
  \section{Conclusions}
- Seznam.cz used to detect the major language of a website by hand crafted algorhitm
+ Seznam.cz used to detect the major language of a website by hand crafted algorithm
  employing a decision tree with if conditions branches. Applying machine learning
  to this task brought Seznam.cz significant improvement in precision and recall in language detection.
  
  To make current algorhitm perform even better, we see an opportunity in web page type
- classifier. If this worked with higher precision, it would be possible to set aside
- difficult web pages such as online marketplaces and the learning algorhitm would be able to
+ classifier. If it works with higher precision, it would be possible to set aside
+ difficult web pages such as online marketplaces and the learning algorithm would be able to
  use different features.
- The above desribed approach towards major language detection has been implemented
+ The above described approach towards major language detection has been implemented
  and is currently used in Seznam.cz to date.
 \bibliographystyle{abbrv}
 \bibliography{major_lang_paper}
