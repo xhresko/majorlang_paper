@@ -200,14 +200,34 @@ TODO
   one combination of feature values based on presence of English leads to classifying the example as English whereas 
   the same or similar combination of feature values based on presence of Czech leads to classifying an example as Czech.
   In multi-category classification we lose this generalisation because all language-specific features are considered
-  not to behave the same/similar way. If we want to capture this generalisation we can claim that feature values based on 
-  presence of language $L_a$ leads to classifying an example as $L_a$. Therefore, we decided to approach our task as binary 
-  classification problem. Apart from language specific features, such as proportion of English/Czech text on a given 
-  web page, we included a \textit{generic language features} in feature vectors. These features work as follows.
-  Our classifier looks at each example from n perspectives, where n is the number of language classes. 
-  For each language $L_i$, our binary classifier retrieves generic language features of the language $L_i$ and all language-specicific
-  ones and says, whether the given example is in language $L_i$ or not. 
+  not to behave the same/similar way.
 
+  The solution for this problem is offered by re-formulating our task.
+  Apart from language specific features, such as proportion of text on a given 
+  web page, we included a \textit{generic language features} in feature vectors. These features work as follows.
+  Our classifier looks at each example from $n$ perspectives, where $n$ is the number of language classes.
+  The principle is illustrated on Figure 1. 
+  In multi-class classification task (A) we would have a sample with specific label (e.g. $L2$).
+  It would be represented with language-specific features (for each language $L_1,L_2,L_3$ ) and some 
+  language independent features (Other).
+
+
+  With re-formulation we will create sample for each language.
+  We will use generic language features of this language $L_i$ and all language-specicific
+  ones ($L_1, L_2, L_3$). The class label will indicate wheter the given example is in language $L_i$ (1) or not (0).
+
+
+  With generic language features, we are shifting from asking questions such as \textit{what is the probability that 
+    this particular page is in the Czech language based on backlink statistics?} to questions 
+    such as \textit{what is the probability that this page is in the language we are currently checking 
+    based on backlink statistics?} 
+ 
+ We looked at each example from the perspective of all ten languages. The 
+  language-specific features remained the same for each ten clones of one example,
+  but generic language features took values of the language whose perspective
+  it was analyzed from.  Thus, we generated nine false training instances and 
+  one true in case of generic languages feature were properly set according to 
+  language of manual annotation.
 
   \begin{figure}
       \caption{Classification vs. Ranking} 
@@ -239,16 +259,12 @@ TODO
   Web pages in the created set (represented by their
   URLs) were subsequently divided into two separate sets for training and
   testing. Our training set consisted of 2,410 web pages and our testing set
-  contained the remaining 1,046 web pages. As soon as we realized that some
+  contained the remaining 1,046 web pages. 
+  As soon as we realized that some
   language classes are obviously not sufficiently represented in our training
   data, we used the above-described trick ( constructing a single classifier for
-  ten languages instead of ten different classifiers) to expand the data set as follows. 
-  We looked at each example from the perspective of all ten languages. The 
-  language-specific features remained the same for each ten clones of one example,
-  but generic language features took values of the language whose perspective
-  it was analyzed from  Thus, we generated nine false training instances and 
-  one true in case of generic languages feature were properly set according to 
-  language of manual  annotation. The final size of our datasets was
+  ten languages instead of ten different classifiers) to expand the data set.
+ The final size of our datasets was
   24,100 and 10,460 samples for training and testing set respectively.
 
 
@@ -293,11 +309,8 @@ TODO
 
  \subsubsection{Generic language features}
     For feature generation purposes, one can examine each web page from 10 different perspecitves -
-    each corresponding to one particular language (i.e. a class). With generic language features, we
-    take advantage of this fact by shifting from asking questions such as \textit{what is the probability that 
-    this particular page is in the Czech language based on backlink statistics?} to questions 
-    such as \textit{what is the probability that this page is in the language we are currently checking 
-    based on backlink statistics?} Technically, this means simply
+    each corresponding to one particular language (i.e. a class).
+   Technically, this means simply
     that for each \textit{view} (i.e. particular language), we copy values of language-specific
     features for that language and use them as generic language features for the current view. Thus
     we end up with 11 generic language features (one for each trait group of language-specific
