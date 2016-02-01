@@ -138,11 +138,11 @@ TODO
   First algorithms were based on n-grams comparing frequencies of n-grams in a given document with 
   language models - frequency list of n-grams \cite{trenkle:ngram}. Current algorithms classifying languages 
   are based on Support Vector Machines (SVM). System based on SVM first maps input into a high dimensional space. 
-  Then, it separates classes with a hyperplane (\cite{Campbell:supportvector}, \cite{Lodhi:textclass}).
-  Our on-page identification was based on an algorithm by Řehůřek and Kolkus (\cite{Rehurek:languageidentification}).  They elaborated the n-gram approach. 
+  Then, it separates classes with a hyperplane \cite{Campbell:supportvector}, \cite{Lodhi:textclass}.
+  Our on-page identification was based on an algorithm by Řehůřek and Kolkus \cite{Rehurek:languageidentification}.  They elaborated the n-gram approach. 
   “We propose and evaluate a new method, which constructs language models based on word relevance. We also 
   extend our method to allow us to efficiently and automatically segment the input text into blocks of individual 
-  languages, in case of multiple-language documents.” (\cite{Rehurek:languageidentification})
+  languages, in case of multiple-language documents.” \cite{Rehurek:languageidentification}
   
   
   We would like to mention one example of how other researchers have dealt with our task. As it was not the main goal of 
@@ -150,7 +150,7 @@ TODO
   “In these cases, we try to re-apply the n-gram algorithm, weighting the largest continuous text block in the document 
   (blocks are identied in the HTML parsing stage, taking in account the markup information) as three times more important 
   than the normal text. The rationale for this is that the longest block will very likely correspond to a good description 
-  of the page, possibly in its main language.” (\cite{Martins:langidentweb}) If we are to determine the major language of a website 
+  of the page, possibly in its main language.” \cite{Martins:langidentweb} If we are to determine the major language of a website 
   we can’t confine ourselves to choose simply the language with highest proportion. A good example of this is a case of an online marketplace
   containing 80\% English and 20\% Czech. Despite this language proportion we would like to choose Czech as the main language. 
   English on this webpage comes up only as the names of products in a very long list. Only the navigational elements are labeled in Czech. In this case 
@@ -285,7 +285,7 @@ TODO
       determines the probability of a web page being written in some particular
       %in the Czech 
       language based on analysis of all the text
-      contained on the page with on-page detector based on (\cite{Rehurek:languageidentification} . 
+      contained on the page with on-page detector based on \cite{Rehurek:languageidentification} . 
       %Similarly \texttt{on\_page\_DE} determines the
       %probability for German language etc. 
       Besides the above-described analysis of whole text, the \textit{on-page 
@@ -336,7 +336,7 @@ TODO
     pair or a triplet of some selected features. 
 
     \section{Evaluation}
- For evaluation purpose we decided to compare proposed approach whith simple "majority vote"...CITACE.... as we were 
+ For evaluation purpose we decided to compare proposed approach whith simple "majority vote" \cite{Martins:langidentweb} as we were 
  not able to find other solutions dedicated for this particular task. We used 3000 training samples to create model. 
  The rest of labeled data - approximately 1900 examples - was used as testing dataset.
  
