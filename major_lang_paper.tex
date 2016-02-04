@@ -86,15 +86,15 @@ TODO
 \keywords{language detection, classification, LETOR} % NOT required for Proceedings
 
 \section{Introduction}
-  Delivering the content based on the preferences of the user is one of the basic tasks of information retrieval systems.
+  Delivering content based on the preferences of the user is one of the basic tasks of information retrieval systems.
   The most important content parameter is called relevance. 
   However, this parameter contains somehow inherently other parameters one of which we could call usability.
-  This hidden parameter could be defined as a probability that user will be able to use the content of particular 
+  The usability could be defined as a probability that user will be able to use the content of particular 
   document to satisfy his (intended) needs.
   Usability of the document is not solely a parameter of a document. 
   We could say that it is a parameter of the user - document relation.
 
-  Language of the document affects the usability with different intensity. 
+  Language of a document affects the usability with different intensity. 
   The weight of its influence depends on the type of document content.
   For example, there is almost no need for understanding the language of the page if it provides mainly images or video content.
   Document readability is telling us if particular user is able to
@@ -108,9 +108,11 @@ TODO
   the so called "major" language of the page is $L_a$, further on denoted by $L_{maj} = L_a$.
   
   However, there are many documents that contains more than one language.
-  Finding out languages and their proportion on a webpage is well-established topic in computational processing of web pages (citace).
+  Finding out languages and their proportion on a webpage is well-established topic in computational processing of web pages \cite{Baldwin:shortlong,Rehurek:languageidentification,trenkle:ngram,Campbell:supportvector,Martins:langidentweb}.
   It could be harder to decide which language would be the "major" for these.
  
+  \section{Major language}
+  
   Let us define the "major" language more precisely. 
   
   "Major" language ($L_{maj}$) of a given webpage is the intended language of all potential queries aiming at a given webpage.
@@ -121,8 +123,9 @@ TODO
   For each webpage, we thus need to ask: “If the user wanted to find this page, in which language would he formulate the query?” 
   Our interpretation of major language presupposes that user knows what should be the language of the answer to his query.
 
-  To choose the language $L_{maj}$ we used on-page language detection results and other features.
-  We approached this topic with a machine-learning method based on our implementation of multiple additive oblivious decision trees called RC-rank.
+  To choose the language $L_{maj}$ we used features such as the presence of chunks of texts written in a particular language or statistics based on 
+  backlink language predition. 
+  We approached this topic with a machine-learning method based on our implementation of multiple additive oblivious decision trees called RC-rank (see section \ref{Classifier}).
   %It is essential topic for any full text search engine to return webpages relevant to a query. 
   %One of the dimensions of relevancy is also a language. 
   %This definition strives to exclude any ambiguity. There are very few contexts in which there would be more queries in various languages aiming at the same page.
@@ -151,8 +154,8 @@ TODO
   (blocks are identied in the HTML parsing stage, taking in account the markup information) as three times more important 
   than the normal text. The rationale for this is that the longest block will very likely correspond to a good description 
   of the page, possibly in its main language.” \cite{Martins:langidentweb} If we are to determine the major language of a website 
-  we can’t confine ourselves to choose simply the language with highest proportion. A good example of this is a case of an online marketplace
-  containing 80\% English and 20\% Czech. Despite this language proportion we would like to choose Czech as the main language. 
+  we can’t confine ourselves to choose simply the language with highest proportion. A good example of this is a case of a webpage of an online store
+  containing 80\% English and 20\% Czech. Despite this language proportion we would like to choose Czech as the main language
   English on this webpage comes up only as the names of products in a very long list. Only the navigational elements are labeled in Czech. In this case 
   we need to assign this page a Czech main language tag because we want to have it as a landing page for queries in Czech.
 
