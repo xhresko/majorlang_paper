@@ -258,7 +258,7 @@ TODO
   web pages randomly selected from database
   used by Seznam.cz's full-text search engine. Each URL was manually assigned
   to exactly one of 10 following language classes {\texttt{CS}, \texttt{DE},
-  \texttt{EN}, \texttt{FR}, \texttt{PL}, \texttt{SK}, \texttt{UNKNOWN}, 
+  \texttt{EN}, \texttt{FR}, \texttt{PL}, \texttt{SK},  
   \texttt{UNKNOWN\_CYRILLIC}, \texttt{UNKNOWN\_LATIN},
   \texttt{UNKNOWN\_OTHER}. 
   
@@ -424,15 +424,23 @@ TODO
 
  \section{Conclusions}
  Seznam.cz used to detect the major language of a website by hand crafted algorithm
- employing a decision tree with if conditions branches. Applying machine learning
+ employing a decision tree with if conditions branches. Applying above-mentioned machine learning algorithm
  to this task brought Seznam.cz significant improvement in precision and recall in language detection.
+
+ Determining the major language of a webpage is very important topic for Seznam.cz because it 
+ influences relevance of the whole SERP and thus users experience with search engine. For queries in
+ language L, search engine should return webpages in language L. To perform this task well, search engine
+ needs to know the major language of each website. The new classifier has been implemented
+  and is currently used in Seznam.cz to date. It has been applied to all webpages in our database
+ which currently ammounts to approximately 1.5G entries. 
  
- To make current algorhitm perform even better, we see an opportunity in web page type
- classifier. If it works with higher precision, it would be possible to set aside
- difficult web pages such as online marketplaces and the learning algorithm would be able to
- use different features.
- The above described approach towards major language detection has been implemented
- and is currently used in Seznam.cz to date.
+ 
+ 
+ To make above-mentioned algorhitm perform even better, we see an opportunity in web page type
+ classifier, which classifies webpages into groups such as online store, image gallery, article etc.
+ If it works with higher precision, it would be possible to set aside 
+ difficult web pages such as online stores which still pose a problem for new classifier.
+ They could then be treated differently by the new classifier to achieve better results.
 \bibliographystyle{abbrv}
 \bibliography{major_lang_paper}
 
