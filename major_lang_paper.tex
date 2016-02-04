@@ -98,24 +98,25 @@ TODO
   The weight of its influence depends on the type of document content.
   For example, there is almost no need for understanding the language of the page if it provides mainly images or video content.
   Document readability is telling us if particular user is able to
-  "use" texts on the web page for his intent (e.g. reading a joke, comments or navigation elements).
-  
+  ``use'' texts on the web page for his intent (e.g. reading a joke, comments or navigation elements).
+ 
+
   The readability could be easily measured if we know that the page contains texts written in only one language 
   and if we know the languages known by the user.
   E.g. we can say that the document written solely in some language $L_a$ would not be readable for a reader 
   that does not know language $L_a$. 
   In this case (when there is only one language used on the page) 
-  the so called "major" language of the page is $L_a$, further on denoted by $L_{maj} = L_a$.
+  the so called ``major'' language of the page is $L_a$, further on denoted by $L_{maj} = L_a$.
   
   However, there are many documents that contains more than one language.
   Finding out languages and their proportion on a webpage is well-established topic in computational processing of web pages \cite{Baldwin:shortlong,Rehurek:languageidentification,trenkle:ngram,Campbell:supportvector,Martins:langidentweb}.
-  It could be harder to decide which language would be the "major" for these.
+  It could be harder to decide which language would be the ``major'' for these.
  
   \section{Major language}
   
-  Let us define the "major" language more precisely. 
+  Let us define the ``major'' language more precisely. 
   
-  "Major" language ($L_{maj}$) of a given webpage is the intended language of all potential queries aiming at a given webpage.
+  ``Major'' language ($L_{maj}$) of a given webpage is the intended language of all potential queries aiming at a given webpage.
   Intended language is the language of web pages in which a user intends to find results in SERP. 
   This definition implies that if a user searches for webpages in a language $L_a$, 
   our major goal is to provide webpages for which $L_{maj} = L_a$.
@@ -166,7 +167,7 @@ TODO
   Due to technical limitations as well as because our services target mainly market in the Czech Republic,
   our database of indexed documents represents sample with specific language distribution (Table \ref{langdist}) which is different from the
   language distribution of all documents in the Internet.
-  The distribution is based primarily on the list of "prefered" languages –
+  The distribution is based primarily on the list of ``prefered'' languages –
   Czech, English, Slovak, German, Polish and French –
   selected as most interesting latin-alphabet languages for local users and representing  our first six classes.
   As we are not trying to differentiate other languages, we created three other language classes specified only by writing system
@@ -339,7 +340,7 @@ TODO
     pair or a triplet of some selected features. 
 
     \section{Evaluation}
- For evaluation purpose we decided to compare proposed approach whith simple "majority vote" \cite{Martins:langidentweb} as we were 
+ For evaluation purpose we decided to compare proposed approach whith simple ``majority vote'' \cite{Martins:langidentweb} as we were 
  not able to find other solutions dedicated for this particular task. We used 3000 training samples to create model. 
  The rest of labeled data - approximately 1900 examples - was used as testing dataset.
  
