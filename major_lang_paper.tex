@@ -109,7 +109,8 @@ TODO
   the so called ``major'' language of the page is $L_a$, further on denoted by $L_{maj} = L_a$.
   
   However, there are many web pages that contains more than one language.
-  Finding out languages and their proportion on a webpage is well-established topic in computational processing of web pages \cite{Baldwin:shortlong,Rehurek:languageidentification,trenkle:ngram,Campbell:supportvector,Martins:langidentweb}.
+  Finding out languages and their proportion on a webpage is well-established topic in computational processing of 
+  web pages \cite{ Baldwin:shortlong, Campbell:supportvector, trenkle:ngram, Martins:langidentweb, Rehurek:languageidentification}.
   It could be harder to decide which language would be the ``major'' for these.
  
   \section{Major language}
@@ -142,7 +143,7 @@ TODO
   First algorithms were based on n-grams comparing frequencies of n-grams in a given web page with 
   language models - frequency list of n-grams \cite{trenkle:ngram}. Current algorithms classifying languages 
   are based on Support Vector Machines (SVM). System based on SVM first maps input into a high dimensional space. 
-  Then, it separates classes with a hyperplane \cite{Campbell:supportvector}, \cite{Lodhi:textclass}.
+  Then, it separates classes with a hyperplane \cite{Campbell:supportvector, Lodhi:textclass}.
   Our on-page identification was based on an algorithm by Řehůřek and Kolkus \cite{Rehurek:languageidentification}.  They elaborated the n-gram approach. 
   “We propose and evaluate a new method, which constructs language models based on word relevance. We also 
   extend our method to allow us to efficiently and automatically segment the input text into blocks of individual 
