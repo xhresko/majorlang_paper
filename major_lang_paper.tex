@@ -259,7 +259,7 @@ TODO
   we didn't make use of all the data in the end.} manually annotated 
   web pages randomly selected from database
   used by Seznam.cz's full-text search engine. Each URL was manually assigned
-  to exactly one of 10 following language classes {\texttt{CS}, \texttt{DE},
+  to exactly one of nine following language classes {\texttt{CS}, \texttt{DE},
   \texttt{EN}, \texttt{FR}, \texttt{PL}, \texttt{SK},  
   \texttt{UNKNOWN\_CYRILLIC}, \texttt{UNKNOWN\_LATIN},
   \texttt{UNKNOWN\_OTHER}. 
@@ -284,7 +284,7 @@ TODO
 \subsubsection{Language-specific features}
 
   The classifier employs 110 language-specific features falling into 11 different  groups. Within each group a
-  particular trait of a site is examined for each of 10 language classes separately. Selection of
+  particular trait of a site is examined for each of nine language classes separately. Selection of
   inspected language traits follows: 
   \begin{itemize}
     \item \textit{on-page language detection} - 
@@ -315,7 +315,7 @@ TODO
 
 
  \subsubsection{Generic language features}
-    For feature generation purposes, one can examine each web page from 10 different perspecitves -
+    For feature generation purposes, one can examine each web page from nine different perspecitves -
     each corresponding to one particular language (i.e. a class).
    Technically, this means simply
     that for each \textit{view} (i.e. particular language), we copy values of language-specific
