@@ -249,7 +249,7 @@ TODO
 
   \section{Training data}
 
-  We used 3,456\footnote{We started by annotating over 4,000 pages.
+  We used approximately 3,800 \footnote{We started by annotating over 4,000 pages.
   Unfortunately we didn't acquire all signals for all of them for technical reasons and thus
   we didn't make use of all the data in the end.} manually annotated 
   web pages randomly selected from database
@@ -261,14 +261,14 @@ TODO
   
   Web pages in the created set (represented by their
   URLs) were subsequently divided into two separate sets for training and
-  testing. Our training set consisted of 2,410 web pages and our testing set
-  contained the remaining 1,046 web pages. 
+  testing. Our training set consisted of 1,918 web pages and our testing set
+  contained the remaining 1,866 web pages. 
   As soon as we realized that some
   language classes are obviously not sufficiently represented in our training
   data, we used the above-described trick ( constructing a single classifier for
   ten languages instead of ten different classifiers) to expand the data set.
  The final size of our datasets was
-  24,100 and 10,460 samples for training and testing set respectively.
+  17,262 and 16,794 samples for training and testing set respectively.
 
 
   \subsection{Features}
@@ -341,8 +341,9 @@ TODO
     \section{Evaluation}
  For the evaluation purposes, we decided to compare proposed approach whith simple ``majority rule approach'' \cite{Martins:langidentweb} as we were 
  not able to find other solutions dedicated for this particular task. It basically states that the language with the highest proportion on a webpage
- is the major language. We used 3000 training samples to create model. 
- The rest of the labeled data - approximately 1900 examples - was used as testing dataset.
+ is the major language. We used cca 1,900 training samples to create model. 
+ The rest of the labeled data - approximately 1,900 examples - was used as testing dataset.
+
  
 % \begin{table}[]
 % \centering
