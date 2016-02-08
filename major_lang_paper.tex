@@ -225,10 +225,10 @@ TODO
     such as \textit{what is the probability that this page is in the language we are currently checking 
     based on the backlink statistics?} 
  
- We looked at each example from the perspective of all ten languages. The 
-  language-specific features remained the same for each ten clones of one example,
+ We looked at each example from the perspective of all nine languages. The 
+  language-specific features remained the same for each nine clones of one example,
   but generic language features took values of the language whose perspective
-  it was analyzed from.  Thus we generated nine false training instances and 
+  it was analyzed from.  Thus we generated eight false training instances and 
   one true, in case generic languages features were set properly according to 
   language of manual annotation.
 
@@ -266,9 +266,8 @@ TODO
   As soon as we realized that some
   language classes are obviously not sufficiently represented in our training
   data, we used the above-described trick ( constructing a single classifier for
-  ten languages instead of ten different classifiers) to expand the data set.
- The final size of our datasets was
-  17,262 and 16,794 samples for training and testing set respectively.
+  nine languages instead of nine different classifiers) to expand the data set.
+  The final size of our datasets was 17,262 and 16,794 samples for training and testing set respectively.
 
 
   \subsection{Features}
@@ -343,8 +342,8 @@ TODO
  not able to find other solutions dedicated for this particular task. It basically states that the language with the highest proportion on a webpage
  is the major language. We used cca 1,900 training samples to create model. 
  The rest of the labeled data - approximately 1,900 examples - was used as testing dataset.
-
  
+
 % \begin{table}[]
 % \centering
 % \caption{Evaluation results (in percents)}
