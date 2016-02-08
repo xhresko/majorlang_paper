@@ -148,7 +148,7 @@ TODO
   
   
   We would like to mention one example of how other researchers have dealt with our task. As it was not the main goal of 
-  their paper, their solution is very simple:
+  their paper, their solution was very simple. It can be labeled majority rule approach:
   “In these cases, we try to re-apply the n-gram algorithm, weighting the largest continuous text block in the page 
   (blocks are identified in the HTML parsing stage, taking into account the markup information) as three times more important 
   than the normal text. The rationale for this is that the longest block will very likely correspond to a good description 
@@ -339,8 +339,9 @@ TODO
     pair or a triplet of some selected features. 
 
     \section{Evaluation}
- For the evaluation purposes, we decided to compare proposed approach whith simple ``majority vote'' \cite{Martins:langidentweb} as we were 
- not able to find other solutions dedicated for this particular task. We used 3000 training samples to create model. 
+ For the evaluation purposes, we decided to compare proposed approach whith simple ``majority rule approach'' \cite{Martins:langidentweb} as we were 
+ not able to find other solutions dedicated for this particular task. It basically states that the language with the highest proportion on a webpage
+ is the major language. We used 3000 training samples to create model. 
  The rest of the labeled data - approximately 1900 examples - was used as testing dataset.
  
 % \begin{table}[]
@@ -374,7 +375,7 @@ TODO
  \vspace{0.5cm}
  \begin{tabular}{l||c|c|c|}
        &
-     \multicolumn{3}{|c}{\textbf{Majority vote}} \\ \hline
+     \multicolumn{3}{|c}{\textbf{Majority rule approach}} \\ \hline
      \textbf{Lang.}    & \textbf{Prec.}  & \textbf{Rec.}   & \textbf{F1}  \\ \hline
      \textbf{Czech}    & 98.56  & 90.84  & 94.54 \\
      \textbf{English}  & 86.67  & 97.76  & 91.88 \\
@@ -412,7 +413,7 @@ TODO
  \end{tabular}
  \end{table}
 
- In the result table we can observe that the simple majority vote F1 score was improved in average by 7\% (weighted average for all languages).
+ In the result table we can observe that the simple majority rule F1 score was improved in average by 7\% (weighted average for all languages).
  The difference ranges from 10\% - 13\% for Slovak and German to smaller improvements above 4\% for Czech language.
  However, not all the results for particular languages are so reliable, as there were only few pages representing some of the languages.
  This is obvious especially for Polish and French languages,  where there were only 19, respectively 30 web pages present 
