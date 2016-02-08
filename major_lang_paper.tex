@@ -88,7 +88,7 @@ TODO
 \section{Introduction}
   Delivering the content based on the preferences of the user is one of the basic tasks of information retrieval systems.
   The most important content parameter is called relevance. 
-  However, this parameter somehow inherently contains other parameters, one of which we will call usability.
+  However, this parameter somehow inherently contains other parameters, which can be called usability.
   Usability can be defined as a probability that user will be able to use the content of particular 
   web page to satisfy his (intended) needs.
   Usability of the page is not solely a parameter of a page itself.
@@ -101,9 +101,9 @@ TODO
   ``use'' the text on the web page for his intent (e.g. reading a joke, comments or navigation elements).
  
 
-  The readability could be easily measured, if we knew that the page contains text written in only one language 
+  The readability could be easily measured, if we know that the page contains text written in only one language 
   and if we know the languages known by the user.
-  E.g. we can say that a page written solely in a language $L_a$ would not be readable for a reader 
+  E.g. it can be said that a page written solely in a language $L_a$ would not be readable for a reader 
   that does not know the language $L_a$. 
   In this case, (when there is only one language used on the page) 
   the so called ``major'' language of the page is $L_a$, further on denoted by $L_{maj} = L_a$.
@@ -125,8 +125,8 @@ TODO
   For each webpage we thus need to ask: “If the user wanted to find this page, in which language would he formulate the query?” 
   Our interpretation of major language presupposes that user knows what should be the language of the answer to his query.
 
-  To choose the language $L_{maj}$ we used features such as the presence of chunks of texts written in a particular language or statistics based on 
-  backlink language predition. 
+  To choose the language $L_{maj}$ features such as the presence of chunks of texts written in a particular language or statistics based on 
+  backlink language predition were used. 
   We approached this topic with a machine-learning method based on our implementation of multiple additive oblivious decision trees called RC-rank (see section \ref{sec:classifier}).
 
 \section{Related Work}
@@ -152,23 +152,23 @@ TODO
   “In these cases, we try to re-apply the n-gram algorithm, weighting the largest continuous text block in the page 
   (blocks are identified in the HTML parsing stage, taking into account the markup information) as three times more important 
   than the normal text. The rationale for this is that the longest block will very likely correspond to a good description 
-  of the page, possibly in its main language.” \cite{Martins:langidentweb} If we are to determine the major language of a website 
-  we can’t confine ourselves to choose simply the language with the highest proportion. A good example of this is a case of a webpage of an online store
-  containing 80\% English and 20\% Czech. Despite this language proportion we would like to choose Czech as the main language
+  of the page, possibly in its main language.” \cite{Martins:langidentweb} If the task is to determine the major language of a website 
+  the language with the highest proportion can not be the only criterion. A good example of this is a case of a webpage of an online store
+  containing 80\% English and 20\% Czech. Despite this language proportion it is right to choose Czech as the main language
   English on this webpage comes up only as the names of products in a very long list. Only the navigational elements are labeled in Czech. In this case 
-  we need to assign this page a Czech main language tag because we want to have it as a landing page for queries in Czech.
+  a Czech main language tag should be assigned to this page because this should be a landing page for queries in Czech.
 
 \section{Languages}
 
   For our purpose we needed to work with specific categories of languages.
-  As a web fulltext search company we work with non-trivial volume of web pages.
+  Fulltext search company Seznam (we work for) works with non-trivial volume of web pages.
   Due to technical limitations, as well as because our services target mainly market in the Czech Republic,
   our database of indexed pages represents sample with specific language distribution (Table \ref{langdist}) which is different from the
   language distribution of all web pages in the Internet.
   The distribution is based primarily on the list of ``prefered'' languages –
   Czech, English, Slovak, German, Polish and French –
   selected as the most interesting latin-alphabet languages for local users and representing  our first six classes.
-  As we are not trying to differentiate other languages, we created three other language classes specified only by writing system
+  As no other languages were differentiated, three other language classes were created. They were specified only by writing system
   – latin, cyrillic and other (e.g. Hungarian, Bulgarian and Armenian language, respectively).
 
   \begin{table}[]
@@ -195,29 +195,29 @@ TODO
 
   Our task resembles a multi-class classification problem. 
   This approach brings a number of issues arising primarily from the fact of class multiplicity. 
-  In the first place, there is a problem with sampling as we needed to keep corresponding proportions 
+  In the first place, there is a problem with sampling as it was necessary to keep corresponding proportions 
   of real distribution of languages across our dataset. 
   This leads to the situation when some classes examples are quite rare and so their count is insufficient 
   to train proper classifier. Also, this approach misses one generalisation valid for our data.
   We assume that all language classes behave uniformly with respect to feature values. In other words, 
   one combination of feature values based on presence of English leads to classifying the example as English, whereas 
   the same or similar combination of feature values based on presence of Czech leads to classifying an example as Czech.
-  In the multi-category classification we lose this generalisation because all language-specific features are considered
+  In the multi-category classification, this generalisation is lost because all language-specific features are considered
   not to behave in the same/similar way.
 
   The solution for this problem is offered by re-formulating our task.
   Apart from language specific features, such as proportion of the text on a given 
-  web page, we included a \textit{generic language features} in feature vectors. These features work as follows:
+  web page, a \textit{generic language features} were included in feature vectors. These features work as follows:
   Our classifier looks at each example from $n$ perspectives, where $n$ is the number of language classes.
   The principle is illustrated in Figure 1. 
-  In a multi-class classification task (A) we would have a sample with specific label (e.g. $L2$).
+  In a multi-class classification task (A) there is a sample with specific label (e.g. $L2$).
   It would be represented by language-specific features (for each language $L_1,L_2,L_3$ ) and some 
   language independent features (Other).
 
 
-  With re-formulation we will create sample for each language.
-  We will use generic language features of this language $L_i$ and all the language-specicific
-  ones ($L_1, L_2, L_3$). The class label will indicate whether the given example is in language $L_i$ (1) or not (0).
+  Sample for each language is created with re-formulation (B).
+  Generic language features of this language $L_i$ are used and all the language-specicific
+  ones ($L_1, L_2, L_3$). The class label indicate whether the given example is in language $L_i$ (1) or not (0).
 
 
   With generic language features, we are shifting from asking questions such as \textit{what is the probability that 
@@ -228,8 +228,8 @@ TODO
  We looked at each example from the perspective of all nine languages. The 
   language-specific features remained the same for each nine clones of one example,
   but generic language features took values of the language whose perspective
-  it was analyzed from.  Thus we generated eight false training instances and 
-  one true, in case generic languages features were set properly according to 
+  it was analyzed from.  Thus, eight false training instances and 
+  one true are generated, in case generic languages features were set properly according to 
   language of manual annotation.
 
   \begin{figure}
