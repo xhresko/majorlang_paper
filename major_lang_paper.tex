@@ -101,7 +101,7 @@ TODO
   ``use'' the text on the web page for his intent (e.g. reading a joke, comments or navigation elements).
  
 
-  The readability could be easily measured, if we know that the page contains text written in only one language 
+  The readability could be easily measured, if we know that the page contains text written in only one language,
   and if we know the languages known by the user.
   E.g. it can be said that a page written solely in a language $L_a$ would not be readable for a reader 
   that does not know the language $L_a$. 
@@ -123,7 +123,7 @@ TODO
   our major goal is to provide webpages for which $L_{maj} = L_a$.
   
   For each webpage we thus need to ask: “If the user wanted to find this page, in which language would he formulate the query?” 
-  Our interpretation of major language presupposes that user knows what should be the language of the answer to his query.
+  Our interpretation of the major language presupposes that the user knows what should be the language of the answer to his query.
 
   To choose the language $L_{maj}$ features such as the presence of chunks of texts written in a particular language or statistics based on 
   backlink language predition were used. 
@@ -135,7 +135,7 @@ TODO
   of languages identified on a webpage. Except for a few remarks on this topic in papers 
   focusing on on-page language detection this topic seems to be unexplored. 
   
-  A necessary prerequisite for our research is on-page language detection. Many researchers approached this topic
+  A necessary prerequisite for our research is an on-page language detection. Many researchers approached this topic
   from various perspectives. For a comparison of some of these models, see \cite{Baldwin:shortlong}. 
   First algorithms were based on n-grams comparing frequencies of n-grams in a given web page with 
   language models - frequency list of n-grams \cite{trenkle:ngram}. Current algorithms classifying languages 
@@ -147,8 +147,8 @@ TODO
   languages, in case of multiple-language web pages.” \cite{Rehurek:languageidentification}
   
   
-  There is one one example of how other researchers have dealt with our task. As it was not the main goal of 
-  their paper, their solution was very simple. It can be labeled majority rule approach:
+  There is one example of how other researchers have dealt with our task. As it was not the main goal of 
+  their paper, their solution was very simple. It can be labeled as a majority rule approach:
   “In these cases, we try to re-apply the n-gram algorithm, weighting the largest continuous text block in the page 
   (blocks are identified in the HTML parsing stage, taking into account the markup information) as three times more important 
   than the normal text. The rationale for this is that the longest block will very likely correspond to a good description 
@@ -165,7 +165,7 @@ TODO
   Due to technical limitations, as well as because our services target mainly market in the Czech Republic,
   our database of indexed pages represents sample with specific language distribution (Table \ref{langdist}) which is different from the
   language distribution of all web pages in the Internet.
-  The distribution is based primarily on the list of ``prefered'' languages –
+  The distribution is based primarily on the list of ``preferred'' languages –
   Czech, English, Slovak, German, Polish and French –
   selected as the most interesting latin-alphabet languages for local users and representing  our first six classes.
   As no other languages were differentiated, three other language classes were created. They were specified only by writing system
@@ -229,7 +229,7 @@ TODO
   language-specific features remained the same for each nine clones of one example,
   but generic language features took values of the language whose perspective
   it was analyzed from.  Thus, eight false training instances and 
-  one true are generated, in case generic languages features were set properly according to 
+  one true are generated, in case generic language features were set properly according to 
   language of manual annotation.
 
   \begin{figure}
@@ -241,18 +241,18 @@ TODO
       \includegraphics[scale=0.5]{multiclass.pdf}
  \end{figure}
 
-  During the evaluation phase then nine samples for any given URL are created
-  and the classifier is used to rank them, using the probability of possitive label as rank value.
-  Then the top sample from nine has been chosen and the final label was predicted as $L_i$ language of this sample.
+  The nine samples for any given URL are created during the evaluation phase
+  and the classifier is used to rank them, using the probability of a possitive label as rank value.
+  Consequently, the top sample from the nine has been chosen and the final label was predicted as $L_i$ language of this sample.
 
-  Using this approach, it was possible to create a more general classifier, which works as a ranker of all considered languages.
-  The final model was trained using RC-Rank algorithm, which is the internal algorithm of Seznam.cz suitable for both, classification and ranking.
+  Using this approach, it was possible to create a more general classifier which works as a ranker of all considered languages.
+  The final model was trained using the RC-Rank algorithm, which is the internal algorithm of Seznam.cz suitable for both, classification and ranking.
   It is using boosted regression trees like MART algorithm (multiple additive regression trees) \cite{friedman:mart}. 
-  However it is using few additional regularization techniques to prevent overfitting even for small datasets.
-  The most important one is the usage of “oblivious trees” (described in \cite{langley:oblivious}). 
+  However, it is using a few additional regularization techniques to prevent overfitting even for small datasets.
+  The most important is the usage of “oblivious trees” (described in \cite{langley:oblivious}). 
   It means that the search for optimal threshold is not optimizing some function (e.g. MSE) just for one node, 
   but for all nodes on the same level in the tree. 
-  This approach is similar to one which is used in MatrixNet from Yandex used in \cite{trofimov:matrixnet}.
+  This approach is similar to the one which is used in MatrixNet from Yandex used in \cite{trofimov:matrixnet}.
 
 
 
@@ -287,14 +287,14 @@ TODO
 \subsubsection{Language-specific features}
 
   The classifier employs 110 language-specific features falling into 11 different  groups. Within each group a
-  particular trait of a site is examined for each of nine language classes separately. Selection of
+  particular trait of a site is examined for each of the nine language classes separately. Selection of
   inspected language traits follows: 
   \begin{itemize}
     \item \textit{on-page language detection} - 
       %E.g. feature named \texttt{on\_page\_CS} 
       determines the probability of a web page being written in some particular
       %in the Czech 
-      language based on analysis of all the text
+      language based on the analysis of all the text
       contained on the page with on-page detector based on \cite{Rehurek:languageidentification} . 
       %Similarly \texttt{on\_page\_DE} determines the
       %probability for German language etc. 
@@ -320,7 +320,7 @@ TODO
  \subsubsection{Generic language features}
     For feature generation purposes, one can examine each web page from nine different perspecitves -
     each corresponding to one particular language (i.e. a class).
-   Technically, this means simply
+   Technically, this simply means 
     that for each \textit{view} (i.e. particular language), values of language-specific
     features for that language are copied and are used as the generic language features for the current view. Thus
     there are 11 generic language features (one for each trait group of language-specific
@@ -346,8 +346,8 @@ TODO
     pair or a triplet of some selected features. 
 
     \section{Evaluation}
- For the evaluation purposes, we decided to compare proposed approach whith simple ``majority rule approach'' \cite{Martins:langidentweb} as we were 
- not able to find other solutions dedicated for this particular task. It basically states that the language with the highest proportion on a webpage
+ For the evaluation purposes, we decided to compare the proposed approach with the simple ``majority rule approach'' \cite{Martins:langidentweb} as we were 
+ not able to find other solutions dedicated to this particular task. It basically states that the language with the highest proportion on a webpage
  is the major language. Approximately 1,900 training samples were used to create model. 
  The rest of the labeled data - approximately 1,900 examples - was used as testing dataset.
  The final model consists of 150 trees with depth 5.
@@ -431,22 +431,22 @@ TODO
 
  \section{Conclusions}
  Seznam.cz used to detect the major language of a website by hand crafted algorithm
- employing a decision tree with if conditions branches. Applying above-mentioned machine learning algorithm
+ employing a decision tree with if conditions branches. Applying the above-mentioned machine learning algorithm
  to this task brought Seznam.cz a significant improvement in precision and recall in language detection.
 
  Determining the major language of a webpage is very important topic for Seznam.cz because it 
- influences relevance of the whole SERP and thus users experience with search engine. For queries in
+ influences relevance of the whole SERP and thus users experience with the search engine. For queries in
  language $L$, search engine should return webpages in language $L$. To perform this task well, search engine
   needs to know the major language of each website. The new classifier has been implemented
-  and is currently used in Seznam.cz to date. It has been applied to all webpages in our database
+  and is currently used in Seznam.cz to date. It has been applied to all webpages in our database,
  which currently ammounts to approximately 1.5G entries. 
  
  
  
- To make above-mentioned algorhitm perform even better, we see an opportunity in web page type
+ To make the above-mentioned algorhitm perform even better, we see an opportunity in the web page type
  classifier which classifies webpages into groups, such as online store, image gallery, article etc.
  If it works with higher precision, it would be possible to set aside 
- difficult web pages such as online stores which still pose a problem for new classifier.
+ difficult web pages such as online stores which still pose a problem for the new classifier.
  They could then be treated differently by the new classifier to achieve better results.
 \bibliographystyle{abbrv}
 \bibliography{major_lang_paper}
