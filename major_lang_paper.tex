@@ -81,7 +81,17 @@
 
 \maketitle
 \begin{abstract}
-TODO
+The major language of a given website is the intended language of all potential queries aiming at a given webpage.
+For any search engine, it is beneficial to know the major language of a site, since it is easier to match
+queries with corresponding webpages. 
+
+Czech search engine company Seznam.cz used to approach this task with handcrafted algorithm with F1 measure reaching
+90.8 percent. After applying machine-learning method based on our implementation of multiple additive oblivious decision trees
+to this task F1 has risen to 97.8 percent, which translates to improving major language detection for tenths of millions of webpages.
+
+Instead of training 10 different classifiers for 10 different language classes one binary classifier was trained determining
+whether a given example belongs to a language class we are viewing the example from.
+
 \end{abstract}
 \keywords{language detection, classification, LETOR} % NOT required for Proceedings
 
