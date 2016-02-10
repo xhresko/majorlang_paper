@@ -28,6 +28,11 @@
 \documentclass{acm_proc_article-sp}
 
 \usepackage[utf8]{inputenc}
+
+\makeatletter
+\def\@copyrightspace{\relax}
+\makeatother
+
 \begin{document}
 
 \title{Major Language Detection}
@@ -161,7 +166,8 @@ to create more general model usable even for quite rare classes with only few tr
   “In these cases, we try to re-apply the n-gram algorithm, weighting the largest continuous text block in the page 
   (blocks are identified in the HTML parsing stage, taking into account the markup information) as three times more important 
   than the normal text. The rationale for this is that the longest block will very likely correspond to a good description 
-  of the page, possibly in its main language.” \cite{Martins:langidentweb} If the task is to determine the major language of a website 
+  of the page, possibly in its main language.” \cite{Martins:langidentweb} 
+  If the task is to determine the major language of a website 
   the language with the highest proportion can not be the only criterion. A good example of this is a case of a webpage of an online store
   containing 80\% English and 20\% Czech. Despite this language proportion it is right to choose Czech as the main language
   English on this webpage comes up only as the names of products in a very long list. Only the navigational elements are labeled in Czech. In this case 
