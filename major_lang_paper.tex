@@ -94,8 +94,8 @@ Czech search engine company Seznam.cz used to approach this task with handcrafte
 90.8 percent. After applying machine-learning method based on our implementation of multiple additive oblivious decision trees
 to this task F1 has risen to 97.8 percent, which translates to improving major language detection for tenths of millions of webpages.
 
-This work shows how the simple reformulation of this specific multi-class classification task could help
-to create more general model usable even for quite rare classes with only few training samples available.
+This work also shows how the simple reformulation of this specific multi-class classification task could help
+to create more general model usable even for quite infrequent classes with only few training samples available.
 
 
 \end{abstract}
@@ -444,10 +444,11 @@ to create more general model usable even for quite rare classes with only few tr
  (another two smaller language groups were Cyrillic and Other).
 
 
- \section{Conclusions}
+ \section{Conclusion}
  Seznam.cz used to detect the major language of a website by hand crafted algorithm
  employing a decision tree with if conditions branches. Applying the above-mentioned machine learning algorithm
- to this task brought Seznam.cz a significant improvement in precision and recall in language detection.
+ to this task brought Seznam.cz a significant improvement in precision and recall in language detection. F1 has risen
+ by 7 \%.
 
  Determining the major language of a webpage is very important topic for Seznam.cz because it 
  influences relevance of the whole SERP and thus users experience with the search engine. For queries in
